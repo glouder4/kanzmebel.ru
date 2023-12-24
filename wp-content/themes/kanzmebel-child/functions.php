@@ -53,7 +53,6 @@ if( function_exists('twentynineteen_colors_css_wrap') ) {
     }
 }
 
-wp_deregister_script('wp-emoji-release.min.js');
 
 remove_action('wp_head', 'rest_output_link_wp_head', 10);
 
@@ -147,8 +146,133 @@ function mywptheme_child_deregister_styles() {
 
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+//Отключили лишнее
+
+//Добавляем новое
+
+//Настройки темы
+
+add_action( 'customize_register', 'kanzmebel_theme_customize_register' );
+function kanzmebel_theme_customize_register( $wp_customize ) {
+    // Здесь делаем что-либо с $wp_customize - объектом класса WP_Customize_Manager, например
+
+    //Свойства сайта title_tagline
+    $wp_customize->remove_setting('custom_logo');
+    $wp_customize->add_setting( 'main_logo' );
+    $wp_customize->add_setting( 'mobile_logo' );
+    $wp_customize->add_control(
+        new WP_Customize_Upload_Control(
+            $wp_customize,
+            'main_logo_control',
+            array(
+                'label'    => 'Основной логотип',
+                'settings' => 'main_logo',
+                'section'  => 'title_tagline'
+            )
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Upload_Control(
+            $wp_customize,
+            'mobile_logo_control',
+            array(
+                'label'    => 'Мобильный логотип',
+                'settings' => 'mobile_logo',
+                'section'  => 'title_tagline'
+            )
+        )
+    );
+    /*$theme_settings->add_control(
+        new WP_Customize_Image_Control(
+            $wp_customize,
+            'true_logo_control',
+            array(
+                'label'    => 'Мобильный логотип сайта',
+                'settings' => 'mobile_logo',
+                'section'  => 'true_header_section'
+            )
+        )
+    );*/
+
+    // Действия с панелями
+    /*$wp_customize->add_panel();     // добавить панель
+    $wp_customize->get_panel();     // получить панель
+    $wp_customize->remove_panel();  // удалить панель
+
+    // Действия с секциями
+    $wp_customize->add_section();    // добавить секцию
+    $wp_customize->get_section();    // получить секцию
+    $wp_customize->remove_section(); // удалить секцию
+
+    // Действия с настройками
+    $wp_customize->add_setting();    // добавить настройку
+    $wp_customize->get_setting();    // получить настройку
+    $wp_customize->remove_setting(); // удалить настройку
+
+    // Действия с элементами управления
+    $wp_customize->add_control();    // добавить элемент управления
+    $wp_customize->get_control();    // получить элемент управления
+    $wp_customize->remove_control(); // удалить элемент управления*/
+}
+
+//Настройки шаблона
+add_filter('woocommerce_currency_symbol', 'misha_symbol_to_bukvi', 9999, 2);
+
+function misha_symbol_to_bukvi( $valyuta_symbol, $valyuta_code ) {
+    if( $valyuta_code === 'RUB' ) {
+        return 'р.';
+    }
+    return $valyuta_symbol;
+}
+
+function theme_kazmebel_header_metadata() {
+    $token = bin2hex(random_bytes(16));
+    foreach ($_SESSION as $key => $item){
+        unset($_SESSION[$key]);
+    }
+    $_SESSION['csrf_token'] = $token;
+    $_SESSION["token-expire"] = time() + 3600; // 1 hour = 3600 secs
+    ?>
+        <meta name="csrf-token" content="<?=$_SESSION['csrf_token'];?>">
+    <?php
+}
+add_action( 'wp_head', 'theme_kazmebel_header_metadata' );
 
 function kanzmebel_scripts(){
-    return '';
+    //wp_enqueue_script( 'jquery.min', get_stylesheet_directory_uri() . '/js/jquery-3.7.1.min.js' );
+    wp_enqueue_script( 'popper.min', get_stylesheet_directory_uri() . '/js/popper.min.js' );
+    wp_enqueue_script( 'bootstrap-5', get_stylesheet_directory_uri() . '/js/bootstrap/bootstrap.js' );
+    wp_enqueue_script( 'general', get_stylesheet_directory_uri() . '/js/general.js' );
+
+
+    wp_enqueue_style( 'bootstrap-5', get_stylesheet_directory_uri() . '/css/bootstrap/bootstrap.css' );
+    wp_enqueue_style( 'general', get_stylesheet_directory_uri() . '/css/general.css',array('bootstrap-5') );
+    wp_enqueue_style( 'main_header', get_stylesheet_directory_uri() . '/css/main_header.css',array('general'));
+
+    // Главная страница
+    if( is_page(17) ){
+        wp_enqueue_style( 'main_page', get_stylesheet_directory_uri() . '/css/main_page.css',array('general'));
+
+        wp_enqueue_script( 'mainpage-index', get_stylesheet_directory_uri() . '/js/mainpage-index.js' );
+    }
 }
-add_action( 'wp_enqueue_scripts', 'kanzmebel_scripts' );
+add_action( 'wp_enqueue_scripts', 'kanzmebel_scripts',25 );
+
+
+/*add_filter( 'style_loader_tag',  'preload_filter', 10, 2 );
+function preload_filter( $html, $handle ){
+    if (strcmp($handle, 'bootstrap-5') == 0) {
+        $html = str_replace("rel='stylesheet'", "rel='preload' as='style' ", $html);
+    }
+    return $html;
+}*/
+
+add_filter("script_loader_tag", "add_module_to_my_script", 10, 3);
+function add_module_to_my_script($tag, $handle, $src)
+{
+    if ("mainpage-index" === $handle) {
+        $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
+    }
+
+    return $tag;
+}

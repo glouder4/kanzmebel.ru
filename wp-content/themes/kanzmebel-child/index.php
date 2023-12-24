@@ -2,7 +2,7 @@
     get_header();
 ?>
 
-    <div id="primary" class="content-area">
+    <div id="another-page" class="content-area">
     </div>
 
 <?php

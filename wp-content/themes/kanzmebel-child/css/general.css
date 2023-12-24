@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@400;700&display=swap');
+
+html body{
+    background-color: #FFF9F9;
+
+    min-height: 100vh;
+}
+html body p,
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6{
+    margin: 0;
+}
+html body a{
+    text-decoration: none;
+}
+html body ul{
+    padding: 0;
+    list-style: none;
+}
+html body button,
+html body button:active,
+html body button:focus{
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+html body img{
+    max-width: 100%;
+    object-fit: contain;
+}
+html body .dropdown .dropdown-menu {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+}
+
+html body .dropdown .dropdown-menu.show{
+    max-height: 300px;
+    opacity: 1;
+}
