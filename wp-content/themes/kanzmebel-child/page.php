@@ -10,42 +10,8 @@
  */
 
 get_header();
-?>
 
-<?php
-        if(is_shop()){
-            $post = file_get_contents('php://input');
-            if( isset($post) && !is_null($post) ){
-                $post = json_decode($post,true);
-            }
-
-            //Здесь точно работает фильтр по категориям
-            $taxonomies = null;
-            if( isset($_GET['taxonomies']) ){
-
-                $taxonomies = explode('_',$_GET['taxonomies']);
-            }
-            else if( isset($_POST['taxonomies']) ){
-                $taxonomies = explode('_',$_POST['taxonomies']);
-            }
-            else if( isset($post['taxonomies']) && $post['taxonomies'] != "" && count($post['taxonomies']) > 0 ){
-                $taxonomies = explode('_',$post['taxonomies']);
-            }
-
-
-            $price_range = null;
-
-            if( ! empty( $_GET['price_range'] ) ){
-                $price_range = explode('|',$_GET['price_range']);
-            }
-            else if( ! empty( $_POST['price_range'] ) ){
-                $price_range = explode('|',$_POST['price_range']);
-            }
-            else if( ! empty( $post['price_range'] ) ){
-                $price_range = explode('|',$post['price_range']);
-            }
-
-            /*$args = array(
+/*$args = array(
                 'post_type' => 'product',
                 'post_status' => 'publish',
                 'tax_query' => array(
@@ -65,36 +31,31 @@ get_header();
                     )
                 )
             );*/
+?>
 
-            $args = array(
-                'post_type' => 'product',
-                'post_status' => 'publish',
-            );
-            if( !empty($taxonomies) && count($taxonomies) > 0 ) {
-                $args['tax_query'] = array(
-                    array(
-                        'taxonomy' => 'product_cat',
-                        'field' => 'id',
-                        'terms' => $taxonomies,
-                        'operator' => 'IN',
-                    )
-                );
+<?php
+        if(is_shop()){
+            $args = custom_modify_args();
+
+            $ordering                = WC()->query->get_catalog_ordering_args();
+
+            //$ordering['orderby']     = array_shift(explode(' ', $ordering['orderby']));
+            //$ordering['orderby']     = stristr($ordering['orderby'], 'price') ? 'meta_value_num' : $ordering['orderby'];
+            $products_per_page       = apply_filters('loop_shop_per_page', wc_get_default_products_per_row() * wc_get_default_product_rows_per_page());
+
+
+            if( count($args['include_product_ids']) > 0 ){
+                $products       = wc_get_products(array(
+                    'meta_key'             => '_price',
+                    'status'               => 'publish',
+                    'limit'                => $args['posts_per_page'],
+                    'page'                 => $args['current_page'],
+                    'paginate'             => true,
+                    'return'               => 'object',
+                    'include' => $args['include_product_ids']
+                ));
             }
-            if( !is_null($price_range) ){
-                $args['meta_query'] = array(
-                    array(
-                        'key' => '_price',
-                        'value' => $price_range,
-                        'compare' => 'BETWEEN',
-                        'type' => 'NUMERIC'
-                    )
-                );
-            }
-
-
-            $products = get_posts( $args );
-            //print_r(count($products));
-
+            else $products = null;
             ?>
             <div id="shop-catalog" class="catalog shop-catalog shop_page">
                 <div class="container">
@@ -181,8 +142,8 @@ get_header();
                                     $min_price = 0;
                                     $max_price = 1000;
                                     if(!empty($products)){
-                                        $min_price = wc_get_product($products[0]->ID)->get_price();
-                                        $max_price = wc_get_product($products[count($products)-1])->get_price();
+                                        //$min_price = wc_get_product($products[0]->ID)->get_price();
+                                        //$max_price = wc_get_product($products[count($products)-1])->get_price();
                                         if( $min_price == $max_price ){
                                             $min_price = 0;
                                         }
@@ -227,12 +188,27 @@ get_header();
                                         //endwhile; // End the loop.
 
                                         if(!empty($products)){
-                                            global $product;
-                                            foreach ($products as $local_product){
-                                                $product = wc_get_product($local_product->ID);
 
-                                                get_template_part('woocommerce/content', 'product');
-                                            }
+                                            wc_set_loop_prop('current_page', $args['current_page']);
+                                            wc_set_loop_prop('is_paginated', wc_string_to_bool(true));
+                                            wc_set_loop_prop('page_template', get_page_template_slug());
+                                            wc_set_loop_prop('per_page', $args['posts_per_page']);
+                                            wc_set_loop_prop('total', $products->total);
+                                            wc_set_loop_prop('total_pages', $products->max_num_pages);
+
+                                            do_action('woocommerce_before_shop_loop');
+                                                woocommerce_product_loop_start();
+
+                                                    foreach($products->products as $featured_product) {
+                                                        wc_setup_product_data($featured_product->get_id());
+                                                        //get_template_part('woocommerce/content', 'product');
+                                                        wc_get_template_part('woocommerce/content', 'product');
+                                                    }
+                                                    wp_reset_postdata();
+                                                woocommerce_product_loop_end();
+                                            do_action('woocommerce_after_shop_loop');
+                                        }else {
+                                            do_action('woocommerce_no_products_found');
                                         }
                                         ?>
                                     </ul>

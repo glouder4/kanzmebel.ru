@@ -66,7 +66,7 @@ export default class ShopPageCatalog extends Essentional{
         if( _this.load_products ){
             let data = {
                 'action': 'get_products',
-                'product-page': this.catalog_page
+                'paged': this.catalog_page
             };
             this.makeRequest(this.catalog.getAttribute('data-endpoint'),JSON.stringify(data),'POST').then(function(data){
                 _this.appendProducts(data);
@@ -83,8 +83,8 @@ export default class ShopPageCatalog extends Essentional{
 
         let data = this.filter_settings;
         data.action = 'get_products';
-        data.taxonomies = [];
-        data['product-page'] = this.catalog_page;
+        data.taxonomies = '';
+        data['paged'] = this.catalog_page;
         data['csrf_token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         Array.from(
@@ -97,7 +97,10 @@ export default class ShopPageCatalog extends Essentional{
             if( key.split('taxonomy-')[1] != undefined ){
                 value = key.split('taxonomy-')[1];
 
-                _this.filter_settings.taxonomies.push(value);
+                //_this.filter_settings.taxonomies.push(value);
+
+                if( data.taxonomies == '' ) _this.filter_settings.taxonomies += value;
+                else _this.filter_settings.taxonomies += '_'+value;
             }
             else{
                 _this.filter_settings[key] = value;
@@ -108,7 +111,10 @@ export default class ShopPageCatalog extends Essentional{
 
         this.filters.classList.remove('show');
 
-        if( _this.load_products ){
+        if( this.load_products ){
+            if( this.filter_settings.hasOwnProperty('price_min') && this.filter_settings.hasOwnProperty('price_max') ){
+                this.filter_settings.price_range = this.filter_settings.price_min+'|'+this.filter_settings.price_max;
+            }
 
             this.makeRequest(this.catalog.getAttribute('data-endpoint'),JSON.stringify(data),'POST').then(function(data){
                 _this.appendProducts(data);
@@ -210,8 +216,8 @@ export default class ShopPageCatalog extends Essentional{
         let _this = this;
         document.getElementById('catalog-data-products').innerHTML = '';
         this.pagination.innerHTML = '';
-        this.appendHtml(document.getElementById('catalog-data-products'),data['products']);
-        this.appendHtml(this.pagination,data['pagination']);
+        this.appendHtml(document.getElementById('catalog-data-products'),data);
+        //this.appendHtml(this.pagination,data['pagination']);
 
 
         Array.from(_this.pagination.querySelectorAll('.pagination')).map(function(paginate){

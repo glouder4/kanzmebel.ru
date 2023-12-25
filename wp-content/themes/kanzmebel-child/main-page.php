@@ -37,7 +37,69 @@
 ?>
 
 <?php
-if ( class_exists( 'WooCommerce' ) ) { ?>
+if ( class_exists( 'WooCommerce' ) ) {
+
+    $post = file_get_contents('php://input');
+    if( isset($post) && !is_null($post) ){
+        $post = json_decode($post,true);
+    }
+
+    //Здесь точно работает фильтр по категориям
+    $taxonomies = null;
+    if( isset($_GET['taxonomies']) ){
+
+        $taxonomies = explode('_',$_GET['taxonomies']);
+    }
+    else if( isset($_POST['taxonomies']) ){
+        $taxonomies = explode('_',$_POST['taxonomies']);
+    }
+    else if( isset($post['taxonomies']) && $post['taxonomies'] != "" && count($post['taxonomies']) > 0 ){
+        $taxonomies = explode('_',$post['taxonomies']);
+    }
+
+
+    $price_range = null;
+
+    if( ! empty( $_GET['price_range'] ) ){
+        $price_range = explode('|',$_GET['price_range']);
+    }
+    else if( ! empty( $_POST['price_range'] ) ){
+        $price_range = explode('|',$_POST['price_range']);
+    }
+    else if( ! empty( $post['price_range'] ) ){
+        $price_range = explode('|',$post['price_range']);
+    }
+
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'numberposts' => 8
+    );
+    if( !empty($taxonomies) && count($taxonomies) > 0 ) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'product_cat',
+                'field' => 'id',
+                'terms' => $taxonomies,
+                'operator' => 'IN',
+            )
+        );
+    }
+    if( !is_null($price_range) ){
+        $args['meta_query'] = array(
+            array(
+                'key' => '_price',
+                'value' => $price_range,
+                'compare' => 'BETWEEN',
+                'type' => 'NUMERIC'
+            )
+        );
+    }
+
+
+    $products = get_posts( $args );
+
+    ?>
    <section id="shop-catalog" class="catalog" data-endpoint="<?=get_stylesheet_directory_uri().'/get-catalog-items.php';?>">
        <div class="container">
            <div class="section-title">
@@ -118,33 +180,38 @@ if ( class_exists( 'WooCommerce' ) ) { ?>
                            ?>
                        </div>
 
-                       <div id="price_filter">
-                           <?php
-                               $query = new WC_Product_Query( array(
-                                   'limit' => -1,
-                                   'orderby' => 'price',
-                                   'order' => 'DESC',
-                                   'return' => 'objects',
-                               ) );
-                               $products = $query->get_products();
-                               $products_count = count($products);
-                           ?>
-                           <span class="h5">Цена</span>
-                           <div class="range">
-                               <div class="range-slider">
-                                   <span class="range-selected"></span>
-                               </div>
-                               <div class="range-input">
-                                   <input type="range" class="min" min="0" max="<?=$products[count($products)-1]->get_price();?>" value="<?=$products[0]->get_price();?>" step="10">
-                                   <input type="range" class="max" min="0" max="<?=$products[count($products)-1]->get_price();?>" value="<?=$products[count($products)-1]->get_price();?>" step="10">
-                               </div>
-                               <div class="range-price">
-                                   <input type="number" name="price_min" value="<?=$products[0]->get_price();?>">
-                                   —
-                                   <input type="number" name="price_max" value="<?=$products[count($products)-1]->get_price();?>">
-                               </div>
-                           </div>
-                       </div>
+                        <?php
+
+                        $min_price = 0;
+                        $max_price = 1000;
+                        if(!empty($products)){
+                            $min_price = wc_get_product($products[0]->ID)->get_price();
+                            $max_price = wc_get_product($products[count($products)-1])->get_price();
+                            if( $min_price == $max_price ){
+                                $min_price = 0;
+                            }
+
+                            ?>
+
+                            <div id="price_filter">
+                                <span class="h5">Цена</span>
+                                <div class="range">
+                                    <div class="range-slider">
+                                        <span class="range-selected"></span>
+                                    </div>
+                                    <div class="range-input">
+                                        <input type="range" class="min" min="0" max="<?=$max_price;?>" value="<?=$min_price;?>" step="10">
+                                        <input type="range" class="max" min="0" max="<?=$max_price;?>" value="<?=$max_price;?>" step="10">
+                                    </div>
+                                    <div class="range-price">
+                                        <input type="number" name="price_min" value="<?=$min_price;?>">
+                                        —
+                                        <input type="number" name="price_max" value="<?=$max_price;?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }
+                        ?>
 
                        <div id="submit_action">
                            <button type="button" class="btn btn-secondary" id="filters-submit_btn">Применить</button>

@@ -1,4 +1,7 @@
 <?php
+ini_set ( 'display_errors', 1 );
+error_reporting ( E_ALL );
+
 remove_theme_support( 'automatic-feed-links' );
 remove_theme_support( 'html5' );
 remove_theme_support( 'customize-selective-refresh-widgets' );
@@ -294,10 +297,13 @@ function add_module_to_my_script($tag, $handle, $src)
 }
 
 function woocommerce_template_loop_product_link_open(){
-    echo '<a href="'.get_permalink().'" title="'.get_the_title().'" itemprop="url">';
+    global $product;
+    echo '<a href="'.get_permalink($product->get_id()).'" title="'.$product->get_title().'" itemprop="url">';
 }
 function woocommerce_template_loop_product_title() {
-    echo '<h2 itemprop="name" class="product_name ' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
+    global $product;
+
+    echo '<h2 itemprop="name" class="product_name ' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . $product->get_title() . '</h2>';
 }
 
 function woocommerce_loop_body_data_action(){
@@ -317,19 +323,9 @@ function woocommerce_template_loop_price(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
 add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_price_range_query_var', 10, 2 );
 function handle_price_range_query_var( $query, $query_vars ) {
-
+    return $query;
 }
 
 function woocommerce_pre_get_posts( $q ){
@@ -341,3 +337,103 @@ function woocommerce_pre_get_posts( $q ){
     return $q;
 }
 add_action('pre_get_posts','woocommerce_pre_get_posts');
+
+function custom_modify_args($args = array()){
+    $post = file_get_contents('php://input');
+    if( isset($post) && !is_null($post) ){
+        $post = json_decode($post,true);
+    }
+
+    $action = null;
+
+    if( isset($_GET['action']) ){
+
+        $action = $_GET['action'];
+    }
+    else if( isset($_POST['action']) ){
+        $action = $_POST['action'];
+    }
+    else if( isset($post['action']) ){
+        $action = $post['action'];
+    }
+
+    $taxonomies = null;
+    if( isset($_GET['taxonomies']) ){
+
+        $taxonomies = explode('_',$_GET['taxonomies']);
+    }
+    else if( isset($_POST['taxonomies']) ){
+        $taxonomies = explode('_',$_POST['taxonomies']);
+    }
+    else if( isset($post['taxonomies']) && $post['taxonomies'] != "" ){
+        $taxonomies = explode('_',$post['taxonomies']);
+    }
+
+
+    $price_range = null;
+
+    if( ! empty( $_GET['price_range'] ) ){
+        $price_range = explode('|',$_GET['price_range']);
+    }
+    else if( ! empty( $_POST['price_range'] ) ){
+        $price_range = explode('|',$_POST['price_range']);
+    }
+    else if( ! empty( $post['price_range'] ) ){
+        $price_range = explode('|',$post['price_range']);
+    }
+
+    $page = 0;
+
+    if( ! empty( $_GET['page'] ) ){
+        $page = $_GET['page'];
+    }
+    else if( ! empty( $_POST['page'] ) ){
+        $page = $_POST['page'];
+    }
+    else if( ! empty( $post['page'] ) ){
+        $page = $post['page'];
+    }
+
+    $products_per_page  = apply_filters('loop_shop_per_page', wc_get_default_products_per_row() * wc_get_default_product_rows_per_page());
+
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => $products_per_page,
+        'offset' => $page*$products_per_page,
+        'current_page' => ($page+1),
+        'total_pages' => null,
+        'action' => $action
+    );
+    if( !empty($taxonomies) && count($taxonomies) > 0 ) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'product_cat',
+                'field' => 'id',
+                'terms' => $taxonomies,
+                'operator' => 'IN',
+            )
+        );
+    }
+    if( !is_null($price_range) ){
+        $args['meta_query'] = array(
+            array(
+                'key' => '_price',
+                'value' => $price_range,
+                'compare' => 'BETWEEN',
+                'type' => 'NUMERIC'
+            )
+        );
+    }
+
+    $product_post_objects = get_posts($args);
+
+    $ids = array_map(function($e) {
+        return $e->ID;
+    }, $product_post_objects);
+
+    $args['include_product_ids'] = $ids;
+    $args['total_pages'] = ceil(count($ids)/$args['posts_per_page']);
+
+    return $args;
+}

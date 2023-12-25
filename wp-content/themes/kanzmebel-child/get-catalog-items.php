@@ -99,13 +99,25 @@ function product_pagination($current_page,$total_pages){
             }
         }
         else if( $current_page <= 6 ){
-            $pagination .= '<li class="pagination" data-page="0">1</li>';
-            if($current_page > 3)$pagination .= '<li>...</li>';
-            $pagination .= '<li class="pagination" data-page="'.($current_page-2).'">'.($current_page-1).'</li>';
-            $pagination .= '<li class="pagination active" data-page="'.($current_page-1).'">'.($current_page).'</li>';
-            $pagination .= '<li class="pagination" data-page="'.$current_page.'">'.($current_page+1).'</li>';
-            $pagination .= '<li>...</li>';
-            $pagination .= '<li class="pagination" data-page="'.($total_pages-1).'">'.($total_pages).'</li>';
+            $init_page = 1;
+
+            for ($page = $init_page; $page <= $total_pages; $page++){
+                if($current_page > 3 && $counter == 1) {
+                    $pagination .= '<li>...</li>';
+                }
+                else if( $counter == 0 ){
+                    $pagination .= '<li class="pagination" data-page="0">1</li>';
+                }
+                else if( $counter == 5 ){
+                    $pagination .= '<li>...</li>';
+                }
+                else if( $counter == 6 ){
+                    $pagination .= '<li class="pagination" data-page="'.($total_pages-1).'">'.($total_pages).'</li>';
+
+                    break;
+                }
+                else  $pagination .= '<li class="pagination" data-page="'.$current_page.'">'.($current_page+1).'</li>';
+            }
         }
     }
     else{
@@ -135,71 +147,44 @@ if (
         exit("Token expired. Please reload form.");
     }
 
-    $action = $post['action'];
-    if( $action == 'get_products' ){
-        $taxonomies = $post['taxonomies'];
-        $price_min = $post['price_min'];
-        $price_max = $post['price_max'];
-        $page = (isset($post['page'])) ? $post['page'] : 0;
+    $args = custom_modify_args();
+    if( $args['action'] == 'get_products' ){
 
-        $args = array(
-            'limit' => -1,
-            'orderby' => 'date',
-            'order' => 'DESC',
-            'return' => 'objects'
-        );
+        $products = get_posts($args);
+        $args['total_pages'] = ceil(count($products)/$args['posts_per_page']);
 
-        if( !empty($taxonomies) && count($taxonomies) > 0 ){
-            $args['tax_query'] = array(
-                array(
-                    'taxonomy' => 'product_cat',
-                    'field' => 'id',
-                    'terms' => $taxonomies,
-                    'operator' => 'IN',
-                ));
-        }
-        if ( isset($price_min) && isset($price_max) ) {
-            $args['price_range'] = array($price_min,$price_max);
-        }
+        wc_set_loop_prop('current_page', $args['current_page']);
+        wc_set_loop_prop('is_paginated', wc_string_to_bool(true));
+        wc_set_loop_prop('page_template', get_page_template_slug());
+        wc_set_loop_prop('per_page', $args['posts_per_page']);
+        wc_set_loop_prop('total', count($products));
+        wc_set_loop_prop('total_pages', $args['total_pages']);
 
-        $products = wc_get_products($args);
-
-        $total_pages = ceil(count($products)/10);
-
-        $products = array_slice($products, 10*$page, 10);
-
-        $product_response = '';
-        foreach ($products as $product){
-            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'single-post-thumbnail' );
-            $height = $product->get_height();
-            $width = $product->get_width() ;
-            $length = $product->get_length();
-
-            $attrs = wc_get_product_attachment_props(get_post_thumbnail_id( $product->get_id() ),$product);
-
-            $product_response .= product_catalog_template(
-                $product->get_id(),
-                get_permalink($product->get_id()),
-                $image[0],
-                $product->get_title(),
-                $length,
-                $width,
-                $height,
-                wc_price($product->get_price(),array()),
-                $attrs['alt']
-            );
+        if($products) {
+            do_action('woocommerce_before_shop_loop');
+                woocommerce_product_loop_start();
+                    foreach($products as $featured_product) {
+                        $post_object = get_post($featured_product);
+                        setup_postdata($GLOBALS['post'] =& $post_object);
+                        wc_get_template_part('content', 'product');
+                    }
+                wp_reset_postdata();
+            woocommerce_product_loop_end();
+            do_action('woocommerce_after_shop_loop');
+        } else {
+            do_action('woocommerce_no_products_found');
         }
 
-        $pagination_response = product_pagination($page,$total_pages);
+        //$pagination_response = product_pagination($args['page'],$args['total_pages']);
 
-        $response = [
-                'total_pages' => $total_pages,
+        /*$response = [
+                'total_pages' => $args['total_pages'],
                 'current_page' => 1,
                 'products' => $product_response,
                 'pagination' => $pagination_response
         ];
 
-        print_r(json_encode($response));
+        print_r(json_encode($response));*/
     }
 }
 else{
