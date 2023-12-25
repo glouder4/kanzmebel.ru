@@ -29,7 +29,7 @@
     height: 0;
     width: 0;
 
-    right: 0;
+    right: -100%;
     top: 0px;
     background-color: #fff;
     border-radius: 50%;
@@ -47,6 +47,7 @@
     display: flex;
     flex-direction: column;
 
+    right: 0;
     width: 100vw;
     height: 100vh;
     border-radius: 0;
@@ -75,7 +76,7 @@
 }
 #mobile_navigation #mobile_navigation-data #mobile_navigation-data_menu>ul>li>a.nav-link{
     font-family: 'Inter';
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 19px;
     letter-spacing: 0em;
@@ -100,4 +101,58 @@
     letter-spacing: 0em;
     text-align: center;
     color: #FFF9F9;
+}
+
+li.dropdown>ul{
+    margin-top: 10px;
+    border: 0;
+    border-radius: 0;
+    border-left: 1px solid #656F6B;
+}
+
+@media(min-width: 768px){
+    #main-header #mobile-sm-menu>.navbar-collapse.show #mobile_navigation{
+        width: 45%;
+    }
+}
+@media(min-width: 992px){
+    #lg-menu{
+
+    }
+    #lg-menu #lg_phone{
+        gap: 10px;
+    }
+    #lg-menu #lg_phone #phone_link{
+        align-items: center;
+        gap: 10px;
+
+        font-family: 'Inter';
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: right;
+        color: #555049;
+    }
+    #lg-menu #lg_phone>div{
+        font-family: 'Inter';
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 14px;
+        letter-spacing: 0em;
+        text-align: right;
+        color: #656F6B;
+
+        border-bottom: 1px dashed #656F6B;
+    }
+
+    #lg-menu #lg_navbar-wrapper>ul>li>a{
+        font-family: 'Inter';
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #868482;
+    }
 }

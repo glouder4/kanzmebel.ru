@@ -248,12 +248,25 @@ function kanzmebel_scripts(){
     wp_enqueue_style( 'bootstrap-5', get_stylesheet_directory_uri() . '/css/bootstrap/bootstrap.css' );
     wp_enqueue_style( 'general', get_stylesheet_directory_uri() . '/css/general.css',array('bootstrap-5') );
     wp_enqueue_style( 'main_header', get_stylesheet_directory_uri() . '/css/main_header.css',array('general'));
+    wp_enqueue_style( 'main_footer', get_stylesheet_directory_uri() . '/css/main_footer.css',array('general'));
+
+    wp_enqueue_style( 'fancybox', get_stylesheet_directory_uri() . '/css/fancybox.css');
+    wp_enqueue_script( 'fancybox', get_stylesheet_directory_uri() . '/js/fancybox.js' );
 
     // Главная страница
     if( is_page(17) ){
         wp_enqueue_style( 'main_page', get_stylesheet_directory_uri() . '/css/main_page.css',array('general'));
+        wp_enqueue_style( 'adaptive_slider', get_stylesheet_directory_uri() . '/css/adaptive_slider.css',array('main_page'));
+        wp_enqueue_style( 'shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css',array('general'));
 
+        wp_enqueue_script( 'adaptive_slider', get_stylesheet_directory_uri() . '/js/adaptive_slider.js' );
         wp_enqueue_script( 'mainpage-index', get_stylesheet_directory_uri() . '/js/mainpage-index.js' );
+    }
+    if( is_shop() ){
+        wp_enqueue_style( 'shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css',array('general'));
+        wp_enqueue_style( 'shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css',array('shop_page'));
+
+        wp_enqueue_script( 'shop-index', get_stylesheet_directory_uri() . '/js/shop-index.js' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'kanzmebel_scripts',25 );
@@ -273,6 +286,58 @@ function add_module_to_my_script($tag, $handle, $src)
     if ("mainpage-index" === $handle) {
         $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
     }
+    if ("shop-index" === $handle) {
+        $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
+    }
 
     return $tag;
 }
+
+function woocommerce_template_loop_product_link_open(){
+    echo '<a href="'.get_permalink().'" title="'.get_the_title().'" itemprop="url">';
+}
+function woocommerce_template_loop_product_title() {
+    echo '<h2 itemprop="name" class="product_name ' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>';
+}
+
+function woocommerce_loop_body_data_action(){
+    global $product;
+    $height = $product->get_height();
+    $width = $product->get_width() ;
+    $length = $product->get_length();
+
+    echo '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
+}
+add_action( 'woocommerce_loop_body_data', 'woocommerce_loop_body_data_action' );
+
+function woocommerce_template_loop_price(){
+    global $product;
+
+    echo '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer"> <span itemprop="price" class="product_price">'.wc_price($product->get_price(),array()).'</span><meta itemprop="priceCurrency" content="RUB" /><link itemprop="availability" href="https://schema.org/InStock" /></div>';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_price_range_query_var', 10, 2 );
+function handle_price_range_query_var( $query, $query_vars ) {
+
+}
+
+function woocommerce_pre_get_posts( $q ){
+    //if( isset($q->queried_object) && isset($q->queried_object->ID) && $q->queried_object->ID == 39 ){
+    if ( is_shop()) {
+        //print_r($q);
+    }
+
+    return $q;
+}
+add_action('pre_get_posts','woocommerce_pre_get_posts');

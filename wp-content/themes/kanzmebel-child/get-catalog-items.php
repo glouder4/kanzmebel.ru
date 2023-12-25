@@ -2,9 +2,9 @@
 ini_set ( 'display_errors', 1 );
 error_reporting ( E_ALL );
 
-require_once($_SERVER['DOCUMENT_ROOT'] .'/wp-load.php');
-
 session_start();
+
+require_once($_SERVER['DOCUMENT_ROOT'] .'/wp-load.php');
 
 $headers = apache_request_headers();
 $csrf_token = ( isset($headers['X-CSRF-TOKEN']) ) ? $headers['X-CSRF-TOKEN'] : null;
@@ -30,6 +30,8 @@ function product_catalog_template($product_id,$link,$image,$product_name,$length
     return $product;
 }
 function product_pagination($current_page,$total_pages){
+    //$current_page = 10;
+    //$total_pages = 100;
     if( $total_pages <= 1) return ;
     $is_centered = ($total_pages > 6) ? 'justify-content-between' : 'justify-content-center gap-1';
 
@@ -119,19 +121,20 @@ function product_pagination($current_page,$total_pages){
     return $pagination;
 }
 
+if( isset($post) && !is_null($post) ){
+    $post = json_decode($post,true);
+}
+
 if (
     isset($headers['X-CSRF-TOKEN']) &&
     isset($_SESSION["csrf_token"]) &&
     isset($_SESSION["token-expire"]) &&
-    $_SESSION["csrf_token"]==$headers['X-CSRF-TOKEN']
+    ( ($_SESSION["csrf_token"]==$headers['X-CSRF-TOKEN']) || ($post["csrf_token"]==$headers['X-CSRF-TOKEN']) )
 ) {
     if (time() >= $_SESSION["token-expire"]) {
         exit("Token expired. Please reload form.");
     }
 
-    if( isset($post) && !is_null($post) ){
-        $post = json_decode($post,true);
-    }
     $action = $post['action'];
     if( $action == 'get_products' ){
         $taxonomies = $post['taxonomies'];
@@ -139,31 +142,46 @@ if (
         $price_max = $post['price_max'];
         $page = (isset($post['page'])) ? $post['page'] : 0;
 
-        $query = new WC_Product_Query( array(
+        $args = array(
             'limit' => -1,
             'orderby' => 'date',
             'order' => 'DESC',
-            'return' => 'objects',
-        ) );
-        $products = $query->get_products();
+            'return' => 'objects'
+        );
+
+        if( !empty($taxonomies) && count($taxonomies) > 0 ){
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field' => 'id',
+                    'terms' => $taxonomies,
+                    'operator' => 'IN',
+                ));
+        }
+        if ( isset($price_min) && isset($price_max) ) {
+            $args['price_range'] = array($price_min,$price_max);
+        }
+
+        $products = wc_get_products($args);
+
         $total_pages = ceil(count($products)/10);
 
         $products = array_slice($products, 10*$page, 10);
 
         $product_response = '';
         foreach ($products as $product){
-            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
+            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'single-post-thumbnail' );
             $height = $product->get_height();
             $width = $product->get_width() ;
             $length = $product->get_length();
 
-            $attrs = wc_get_product_attachment_props(get_post_thumbnail_id( $product->id ),$product);
+            $attrs = wc_get_product_attachment_props(get_post_thumbnail_id( $product->get_id() ),$product);
 
             $product_response .= product_catalog_template(
-                $product->id,
-                get_permalink($product->id),
+                $product->get_id(),
+                get_permalink($product->get_id()),
                 $image[0],
-                $product->name,
+                $product->get_title(),
                 $length,
                 $width,
                 $height,
@@ -185,5 +203,6 @@ if (
     }
 }
 else{
+    echo $headers['X-CSRF-TOKEN'].' '.$_SESSION["csrf_token"];
     echo 'csrf mismatch';
 }
