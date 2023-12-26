@@ -3,11 +3,13 @@ ini_set ( 'display_errors', 1 );
 error_reporting ( E_ALL );
 
 session_start();
+global $session;
+print_r($_SESSION);
 
 require_once($_SERVER['DOCUMENT_ROOT'] .'/wp-load.php');
 
 $headers = apache_request_headers();
-$csrf_token = ( isset($headers['X-CSRF-TOKEN']) ) ? $headers['X-CSRF-TOKEN'] : null;
+$csrf_token = ( isset($headers['x-csrf-token']) ) ? $headers['x-csrf-token'] : null;
 
 $post = file_get_contents('php://input');
 
@@ -137,15 +139,16 @@ if( isset($post) && !is_null($post) ){
     $post = json_decode($post,true);
 }
 
-if (
-    isset($headers['X-CSRF-TOKEN']) &&
+/*if (
+    isset($csrf_token) &&
     isset($_SESSION["csrf_token"]) &&
     isset($_SESSION["token-expire"]) &&
-    ( ($_SESSION["csrf_token"]==$headers['X-CSRF-TOKEN']) || ($post["csrf_token"]==$headers['X-CSRF-TOKEN']) )
+    ( ($_SESSION["csrf_token"]==$csrf_token) ||
+        ( isset($post["csrf_token"]) && $post["csrf_token"]==$csrf_token) )
 ) {
     if (time() >= $_SESSION["token-expire"]) {
         exit("Token expired. Please reload form.");
-    }
+    }*/
 
     $args = custom_modify_args();
     if( $args['action'] == 'get_products' ){
@@ -161,7 +164,7 @@ if (
         wc_set_loop_prop('total_pages', $args['total_pages']);
 
         if($products) {
-            do_action('woocommerce_before_shop_loop');
+            //do_action('woocommerce_before_shop_loop');
                 woocommerce_product_loop_start();
                     foreach($products as $featured_product) {
                         $post_object = get_post($featured_product);
@@ -170,7 +173,7 @@ if (
                     }
                 wp_reset_postdata();
             woocommerce_product_loop_end();
-            do_action('woocommerce_after_shop_loop');
+            //do_action('woocommerce_after_shop_loop');
         } else {
             do_action('woocommerce_no_products_found');
         }
@@ -186,8 +189,9 @@ if (
 
         print_r(json_encode($response));*/
     }
-}
+/*}
 else{
-    echo $headers['X-CSRF-TOKEN'].' '.$_SESSION["csrf_token"];
-    echo 'csrf mismatch';
-}
+    print_r($_SESSION); echo '<br/>';
+    echo $csrf_token.' | '.$_SESSION["csrf_token"];
+    echo '<br/>csrf mismatch';
+}*/

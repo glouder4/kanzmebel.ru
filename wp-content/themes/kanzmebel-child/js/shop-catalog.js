@@ -73,7 +73,7 @@ export default class ShopPageCatalog extends Essentional{
             });
         }
 
-        if( window.innerWidth >= 1400 ) {
+        if( window.innerWidth >= 1200 ) {
             this.openFilters();
         }
     }

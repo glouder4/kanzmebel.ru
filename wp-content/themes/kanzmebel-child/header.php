@@ -11,7 +11,6 @@
  * @since Twenty Nineteen 1.0
  */
 
-session_start();
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>

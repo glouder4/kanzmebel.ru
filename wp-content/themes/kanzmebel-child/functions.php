@@ -229,10 +229,15 @@ function misha_symbol_to_bukvi( $valyuta_symbol, $valyuta_code ) {
 }
 
 function theme_kazmebel_header_metadata() {
+    //session_start();
     $token = bin2hex(random_bytes(16));
-    foreach ($_SESSION as $key => $item){
-        unset($_SESSION[$key]);
+
+    if( isset($_SESSION['csrf_token']) ){
+        foreach ($_SESSION as $key => $item){
+            unset($_SESSION[$key]);
+        }
     }
+
     $_SESSION['csrf_token'] = $token;
     $_SESSION["token-expire"] = time() + 3600; // 1 hour = 3600 secs
     ?>
@@ -261,6 +266,7 @@ function kanzmebel_scripts(){
         wp_enqueue_style( 'main_page', get_stylesheet_directory_uri() . '/css/main_page.css',array('general'));
         wp_enqueue_style( 'adaptive_slider', get_stylesheet_directory_uri() . '/css/adaptive_slider.css',array('main_page'));
         wp_enqueue_style( 'shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css',array('general'));
+        wp_enqueue_style( 'shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css',array('shop_page'));
 
         wp_enqueue_script( 'adaptive_slider', get_stylesheet_directory_uri() . '/js/adaptive_slider.js' );
         wp_enqueue_script( 'mainpage-index', get_stylesheet_directory_uri() . '/js/mainpage-index.js' );

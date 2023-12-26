@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="773a0b6f-68f4-4847-a5e5-c4ff90f1f473" name="kanzmebel" url="http://kanzmebel.ru">
+        <fileTransfer rootFolder="/home/k/kanzmebel" accessType="SFTP" host="kanzmebel.beget.tech" port="22" sshConfigId="a1de7dae-cf07-499b-b25b-93ac4d11c9b2" sshConfig="kanzmebel_g4@kanzmebel.beget.tech:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

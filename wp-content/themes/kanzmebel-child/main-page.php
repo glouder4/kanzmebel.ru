@@ -219,7 +219,7 @@ if ( class_exists( 'WooCommerce' ) ) {
                    </form>
                </div>
                <div id="catalog-data" class="catalog-data">
-                    <div id="catalog-data-products" class="catalog-data-products">
+                    <div id="catalog-data-products" class="catalog-data-products woocommerce">
                         <div class="catalog_preloader">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only"></span>

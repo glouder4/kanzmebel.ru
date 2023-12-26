@@ -15,7 +15,6 @@ export default class Essentional{
         let _this = this;
 
         return new Promise((resolve,reject) => {
-
             let post = data;
             let xhr = new XMLHttpRequest()
             xhr.open(type, url, true);

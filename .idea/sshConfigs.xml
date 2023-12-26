@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="kanzmebel.beget.tech" id="a1de7dae-cf07-499b-b25b-93ac4d11c9b2" port="22" nameFormat="DESCRIPTIVE" username="kanzmebel_g4" useOpenSSHConfig="false" />
+    </configs>
+  </component>
+</project>
