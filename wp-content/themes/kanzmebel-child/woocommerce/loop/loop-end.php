@@ -19,4 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
+    <?php
+        if( is_product() ):
+    ?>
+        </div>
+    <?php
+        endif;
+    ?>
 </ul>

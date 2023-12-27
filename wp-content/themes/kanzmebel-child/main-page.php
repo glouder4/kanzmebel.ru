@@ -39,65 +39,27 @@
 <?php
 if ( class_exists( 'WooCommerce' ) ) {
 
-    $post = file_get_contents('php://input');
-    if( isset($post) && !is_null($post) ){
-        $post = json_decode($post,true);
-    }
+    $args = custom_modify_args();
 
-    //Здесь точно работает фильтр по категориям
-    $taxonomies = null;
-    if( isset($_GET['taxonomies']) ){
+    $ordering                = WC()->query->get_catalog_ordering_args();
 
-        $taxonomies = explode('_',$_GET['taxonomies']);
-    }
-    else if( isset($_POST['taxonomies']) ){
-        $taxonomies = explode('_',$_POST['taxonomies']);
-    }
-    else if( isset($post['taxonomies']) && $post['taxonomies'] != "" && count($post['taxonomies']) > 0 ){
-        $taxonomies = explode('_',$post['taxonomies']);
-    }
+    //$ordering['orderby']     = array_shift(explode(' ', $ordering['orderby']));
+    //$ordering['orderby']     = stristr($ordering['orderby'], 'price') ? 'meta_value_num' : $ordering['orderby'];
+    $products_per_page       = apply_filters('loop_shop_per_page', wc_get_default_products_per_row() * wc_get_default_product_rows_per_page());
 
 
-    $price_range = null;
-
-    if( ! empty( $_GET['price_range'] ) ){
-        $price_range = explode('|',$_GET['price_range']);
+    if( count($args['include_product_ids']) > 0 ){
+        $products       = wc_get_products(array(
+            'meta_key'             => '_price',
+            'status'               => 'publish',
+            'limit'                => $args['posts_per_page'],
+            'page'                 => $args['current_page'],
+            'paginate'             => true,
+            'return'               => 'object',
+            'include' => $args['include_product_ids']
+        ));
     }
-    else if( ! empty( $_POST['price_range'] ) ){
-        $price_range = explode('|',$_POST['price_range']);
-    }
-    else if( ! empty( $post['price_range'] ) ){
-        $price_range = explode('|',$post['price_range']);
-    }
-
-    $args = array(
-        'post_type' => 'product',
-        'post_status' => 'publish',
-        'numberposts' => 8
-    );
-    if( !empty($taxonomies) && count($taxonomies) > 0 ) {
-        $args['tax_query'] = array(
-            array(
-                'taxonomy' => 'product_cat',
-                'field' => 'id',
-                'terms' => $taxonomies,
-                'operator' => 'IN',
-            )
-        );
-    }
-    if( !is_null($price_range) ){
-        $args['meta_query'] = array(
-            array(
-                'key' => '_price',
-                'value' => $price_range,
-                'compare' => 'BETWEEN',
-                'type' => 'NUMERIC'
-            )
-        );
-    }
-
-
-    $products = get_posts( $args );
+    else $products = null;
 
     ?>
    <section id="shop-catalog" class="catalog" data-endpoint="<?=get_stylesheet_directory_uri().'/get-catalog-items.php';?>">
@@ -185,8 +147,8 @@ if ( class_exists( 'WooCommerce' ) ) {
                         $min_price = 0;
                         $max_price = 1000;
                         if(!empty($products)){
-                            $min_price = wc_get_product($products[0]->ID)->get_price();
-                            $max_price = wc_get_product($products[count($products)-1])->get_price();
+                            $min_price = $products->products[0]->get_price();
+                            $max_price = $products->products[count($products->products)-1]->get_price();
                             if( $min_price == $max_price ){
                                 $min_price = 0;
                             }

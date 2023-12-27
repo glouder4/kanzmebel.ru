@@ -4,7 +4,7 @@ error_reporting ( E_ALL );
 
 session_start();
 global $session;
-print_r($_SESSION);
+//print_r($_SESSION);
 
 require_once($_SERVER['DOCUMENT_ROOT'] .'/wp-load.php');
 

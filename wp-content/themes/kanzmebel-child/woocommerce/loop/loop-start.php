@@ -20,3 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <ul class="products columns-<?php echo esc_attr( wc_get_loop_prop( 'columns' ) ); ?>">
+    <?php
+        if( is_product() ):
+    ?>
+        <div class="swiper-wrapper">
+    <?php
+        endif;
+    ?>

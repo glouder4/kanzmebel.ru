@@ -119,55 +119,6 @@
     text-align: left;
     color: #555049;
 }
-.additional-data{
-    margin-top: 10px;
-    padding: 60px 45px;
-}
-.additional-data .section-data{
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.additional-data .section-data>p{
-    font-family: 'Inter';
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #555049;
-}
-.additional-data .section-data>a.btn.link_btn{
-    border: 1px solid #656F6B;
-    color: #656F6B;
-    max-width: 275px;
-    margin: auto;
-}
-.additional-data .section-data>a.btn.link_btn:hover {
-    color: black;
-}
-.additional-data .section-data>a.btn.link_btn:hover:before {
-    width: 100%;
-    color: #FFF9F9;
-    background-color: rgba(101, 111, 107, 0.34);
-}
-.additional-data.light-items .section-data>p{
-    color: #FFF9F9;
-}
-.additional-data.light-items .section-data>a.btn.link_btn{
-    border: 1px solid #FFF9F9;
-    color: #FFF9F9;
-}
-.additional-data.light-items .section-data>a.btn.link_btn:hover {
-    color: black;
-}
-.additional-data.light-items .section-data>a.btn.link_btn:hover:before {
-    width: 100%;
-    color: rgba(101, 111, 107, 0.34);
-    background-color: #FFF9F9;
-}
 #interior{
     overflow: hidden;
 }
@@ -316,12 +267,6 @@
     #another-info>.container>div{
         gap: 55px;
     }
-    .additional-data{
-        margin-top: 20px;
-    }
-    .additional-data .section-data>a.btn.link_btn{
-        max-width: fit-content;
-    }
     #news_list{
         margin-top: 30px;
     }
@@ -331,17 +276,11 @@
         justify-content: center;
         gap: 75px;
     }
-    .additional-data{
-        margin-top: 20px;
-    }
     #news_list{
         margin-top: 30px;
     }
 }
 @media (min-width: 1200px){
-    .additional-data {
-        margin-top: 50px;
-    }
     #news_list {
         margin-top: 50px;
     }
@@ -379,14 +318,6 @@
         line-height: 25px;
         letter-spacing: 0em;
         text-align: left;
-    }
-    .additional-data .section-data>p{
-        font-family: 'Inter';
-        font-size: 30px;
-        font-weight: 400;
-        line-height: 42px;
-        letter-spacing: 0em;
-        text-align: center;
     }
 
     #interior .section_title,

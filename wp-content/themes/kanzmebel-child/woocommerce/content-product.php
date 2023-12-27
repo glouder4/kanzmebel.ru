@@ -29,7 +29,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 
 
 
-<li <?php wc_product_class( 'catalog_item', $product ); ?> itemscope itemtype="https://schema.org/Product">
+<li <?php wc_product_class( 'catalog_item swiper-slide', $product ); ?> itemscope itemtype="https://schema.org/Product">
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.

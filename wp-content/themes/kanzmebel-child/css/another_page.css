@@ -1,0 +1,279 @@
+#another_page .section-title>h1{
+    font-family: Inter;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    text-transform: uppercase;
+}
+#another_page .section-body{
+    margin-top: 50px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#another_page .section-body #page-data>p{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    margin-top: 10px;
+}
+#another_page .section-body #page-data>p:first-child{
+    margin-top: 0;
+}
+
+#another_page #page-image{
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+#another_page #contacts{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+#another_page #contacts>.contacts-data:not(:first-child){
+    margin-top: 20px;
+}
+#another_page #contacts>.contacts-data>h2{
+    font-family: 'Inter';
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+
+    margin-bottom: 10px;
+}
+#another_page #contacts>.contacts-data>p{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #contacts>.contacts-data>p>a.phone-link{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #contacts>.contacts-data>p>a.email-link{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #contacts>.contacts-data>p>a.social_link{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #contacts>.contacts-data>p:not(:first-child){
+    margin-top: 10px;
+}
+#another_page #map{
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    width: 100%;
+}
+
+#another_page #about_fabric{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    margin-bottom: 20px;
+}
+#another_page #about_fabric>.about_fabric-item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    padding: 20px 17px;
+}
+#another_page #about_fabric>.about_fabric-item{
+    border: 1px solid #656F6B;
+}
+#another_page #about_fabric>.about_fabric-item:nth-child(odd){
+    background-color: #656F6B;
+}
+#another_page #about_fabric>.about_fabric-item>.about_fabric-item_counter{
+    border: 1px solid #656F6B;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #656F6B;
+}
+#another_page #about_fabric>.about_fabric-item>.about_fabric-item_name{
+    width: calc(90% - 36px);
+}
+#another_page #about_fabric>.about_fabric-item>.about_fabric-item_name{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #about_fabric>.about_fabric-item>.about_fabric-item_description{
+    width: 100%;
+
+    margin-top: 10px;
+}
+#another_page #about_fabric>.about_fabric-item>.about_fabric-item_description>p{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #about_fabric>.about_fabric-item>.about_fabric-item_description>p:not(:first-child){
+    margin-top: 10px;
+}
+#another_page #about_fabric>.about_fabric-item:nth-child(odd)>.about_fabric-item_counter{
+    border-color: #FFF9F9;
+    color: #FFF9F9;
+}
+#another_page #about_fabric>.about_fabric-item:nth-child(odd)>.about_fabric-item_name{
+    color: #FFF9F9;
+}
+#another_page #about_fabric>.about_fabric-item:nth-child(odd)>.about_fabric-item_description>p{
+    color: #FFF9F9;
+}
+
+#another_page #interior .section_title>.h4{
+    font-family: 'Inter';
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #interior .section_title>p{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#another_page #interior #interior_slider{
+    display: flex;
+    gap: 20px;
+
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    margin-top: 20px;
+}
+#another_page #interior #interior_slider>a{
+    width: calc(50% - 10px);
+}
+#another_page #interior #interior_slider img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+@media(min-width: 768px){
+    #another_page #interior .section_title>.h4{
+        font-size: 27px;
+        line-height: 32px;
+    }
+    #another_page #contacts{
+        flex-direction: row;
+
+        justify-content: space-between;
+    }
+    #another_page #contacts>.contacts-data{
+        width: 32%;
+        margin-top: 0!important;
+    }
+    #another_page #interior #interior_slider>a{
+        width: calc(33% - 12px);
+    }
+}
+@media(min-width: 991px){
+    #another_page #interior .section_title{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    #another_page #interior .section_title>.h4{
+        font-size: 32px;
+        line-height: 36px;
+    }
+    #another_page .section-title>h1{
+        font-size: 50px;
+        line-height: 65px;
+    }
+    #another_page .section-body{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+@media(min-width: 1200px){
+    #another_page{
+        margin-top: 20px;
+    }
+    #another_page .section-body #page-data{
+        width: calc(100% - 500px);
+    }
+    #another_page #map{
+        margin-bottom: 30px;
+    }
+
+    #another_page #about_fabric>.about_fabric-item{
+        padding: 40px 16px;
+    }
+    #another_page #about_fabric>.about_fabric-item>.about_fabric-item_name{
+        width: calc(50% - 36px);
+        font-size: 27px;
+        line-height: 42px;
+    }
+    #another_page #about_fabric>.about_fabric-item>.about_fabric-item_description{
+        width: calc(50% - 36px);
+        margin-top: 0;
+    }
+    #another_page #about_fabric>.about_fabric-item>.about_fabric-item_description>p{
+        font-size: 18px;
+        line-height: 22px;
+    }
+    #another_page #interior .section_title>.h4{
+        font-size: 50px;
+        line-height: 55px;
+    }
+}

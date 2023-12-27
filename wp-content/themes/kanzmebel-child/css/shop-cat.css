@@ -1,0 +1,173 @@
+#shop-catalog{
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#category-products_in_interior{
+    margin-top: 20px;
+}
+#category-products_in_interior .section-data{
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    gap: 5px;
+}
+#category-products_in_interior .section-title{
+    margin-bottom: 20px;
+}
+#category-products_in_interior .section-title .title{
+    font-family: 'Inter';
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#category-products_in_interior .section-data .slide{
+    max-width: 275px;
+    width: 49%;
+    height: 210px;
+}
+#category-products_in_interior .section-data .slide>a,
+#category-products_in_interior .section-data .slide>a>.slide_data{
+    height: 100%;
+}
+#category-products_in_interior .section-data .slide img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+#about_category{
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+#about_category .section-title{
+    margin-bottom: 20px;
+}
+#about_category .section-title>.title{
+    font-family: 'Inter';
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#about_category .section-data .horizon-data{
+    display: flex;
+    flex-direction: column;
+
+    gap: 25px;
+}
+#about_category .section-data .horizon-data>.horizon-data-text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#main_description .section-data>p,
+#about_category .section-data .horizon-data>.horizon-data-text>p{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+
+#main_description,
+#faqs{
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+#main_description .section-title,
+#faqs .section-title{
+    margin-bottom: 10px;
+}
+#faqs .section-title{
+    margin-bottom: 30px;
+}
+#main_description .section-title>.title{
+    font-family: 'Inter';
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+#faqs .section-title>.title{
+    font-family: 'Inter';
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#about_category .section-data .horizon-data>div{
+    width: 100%;
+}
+#about_category .section-data .horizon-data>.horizon-data-image{
+    max-width: 460px;
+}
+@media(min-width: 768px){
+    #category-products_in_interior .section-data{
+        gap: 20px;
+    }
+    #category-products_in_interior .section-data .slide{
+        width: calc(25% - 15px);
+    }
+    #category-products_in_interior .section-title .title,
+    #main_description .section-title>.title,
+    #faqs .section-title>.title{
+        font-size: 50px;
+        line-height: 50px;
+    }
+    #about_category{
+        margin-top: 35px;
+        margin-bottom: 30px;
+    }
+    #about_category .section-title,
+    #main_description .section-title{
+        margin-bottom: 35px;
+    }
+    #about_category .section-title>.title{
+        font-size: 50px;
+        line-height: 50px;
+    }
+}
+@media(min-width: 991px){
+    #about_category .section-data .horizon-data{
+        flex-direction: row;
+        gap: 40px;
+    }
+    #about_category .section-data .horizon-data>.horizon-data-text>p{
+
+    }
+}
+@media(min-width: 1200px){
+    .catalog .section_data .catalog-data>.catalog-data-products,
+    .catalog .section_data .catalog-data>.catalog-data-products ul.products{
+        margin: 0;
+    }
+    #shop-catalog{
+        margin-top: 30px;
+    }
+    #about_category .section-data .horizon-data>.horizon-data-text{
+        margin-top: 20px;
+        padding: 0 50px;
+    }
+    #category-products_in_interior .section-data .slide{
+        width: calc(25% - 15px);
+    }
+}
+@media(min-width: 1400px){
+    #shop-catalog{
+        margin-top: 50px;
+    }
+}

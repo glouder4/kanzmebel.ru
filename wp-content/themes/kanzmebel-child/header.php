@@ -10,7 +10,6 @@
  * @subpackage Twenty_Nineteen
  * @since Twenty Nineteen 1.0
  */
-
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -29,15 +28,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="writeUsLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="writeUsLabel">Оставить заявку</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <div id="modal-data-form">
+                    <form action="#">
+                        <div class="form-group">
+                            <input type="name" placeholder="Ваше Имя" />
+                        </div>
+                        <div class="form-group" type="phone">
+                            <input type="phone" placeholder="+7 (999) 999 99-99">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваша почта" />
+                        </div>
+
+                        <input type="submit" value="Отправить" class="btn" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -48,9 +57,9 @@
         <div class="container p-0">
             <div id="mobile-sm-menu" class="col-12 d-lg-none">
                 <div class="d-flex flex-row m-0 justify-content-between align-items-center">
-                    <div id="mobile_logo-wrapper">
+                    <a href="/" id="mobile_logo-wrapper">
                         <img src="<?=get_theme_mod( 'mobile_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
-                    </div>
+                    </a>
                     <div id="mobile_button-wrapper">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Развернуть меню">
                             <svg width="22" height="2" viewBox="0 0 22 2" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,74 +90,23 @@
                                 <div id="mobile_navigation-data_logo">
                                     <img src="<?=get_theme_mod( 'main_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
                                 </div>
-                                <div id="mobile_navigation-data_menu">
-                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="#">Главная</a>
-                                        </li>
-                                        <?php
-                                            $categories = get_categories( [
-                                                'taxonomy'     => 'product_cat',
-                                                'type'         => 'post',
-                                                'child_of'     => 0,
-                                                'parent'       => '',
-                                                'orderby'      => 'name',
-                                                'order'        => 'ASC',
-                                                'hide_empty'   => 1,
-                                                'hierarchical' => 1,
-                                                'exclude'      => '',
-                                                'include'      => '',
-                                                'pad_counts'   => false,
-                                                // полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
-                                            ] );
 
-                                            if( $categories ) { ?>
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Каталог
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <?php
-                                                        foreach ($categories as $cat) { ?>
-                                                            <li><a class="dropdown-item" href="<?=get_term_link( $cat->slug, 'product_cat' );?>"><?=$cat->name;?></a></li>
-                                                        <?php } ?>
-                                                    </ul>
-                                                </li>
-                                        <?php    }
-                                        ?>
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Коллекции
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="#">О фабрике</a>
-                                        </li>
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Для клиента
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="#">Сотрудничество</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="#">Контакты</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <?php
+                                $walker = new Walker_Nav_Menu;
+
+                                $args = array(
+                                    'walker' => $walker,
+                                    'theme_location' => 'main-menu',
+                                    'container' => 'div',
+                                    'container_id' => 'mobile_navigation-data_menu',
+                                    'menu_class' => 'navbar-nav me-auto mb-2 mb-lg-0',
+                                    'depth' => 2,
+                                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                                    'add_li_class'  => 'nav-item'
+                                );
+
+                                wp_nav_menu( $args );
+                                ?>
                             </div>
                             <div id="mobile_navigation-data_actions">
                                 <button type="button" id="writeUsBtn" class="btn" data-bs-toggle="modal" data-bs-target="#writeUs">
@@ -162,63 +120,25 @@
 
             <div id="lg-menu" class="d-none d-lg-flex w-100">
                 <div id="lg-menu-wrapper" class="d-flex w-100 flex-row m-0 justify-content-between align-items-center">
-                    <div id="lg_logo-wrapper">
+                    <a href="/" id="lg_logo-wrapper">
                         <img src="<?=get_theme_mod( 'main_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
-                    </div>
-                    <div id="lg_navbar-wrapper">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">О фабрике</a>
-                            </li>
-                            <?php
-                            $categories = get_categories( [
-                                'taxonomy'     => 'product_cat',
-                                'type'         => 'post',
-                                'child_of'     => 0,
-                                'parent'       => '',
-                                'orderby'      => 'name',
-                                'order'        => 'ASC',
-                                'hide_empty'   => 1,
-                                'hierarchical' => 1,
-                                'exclude'      => array(15),
-                                'include'      => '',
-                                'pad_counts'   => false,
-                                // полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
-                            ] );
+                    </a>
+                    <?php
+                        $walker = new Walker_Nav_Menu;
 
-                            if( $categories ) { ?>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Каталог
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <?php
-                                        foreach ($categories as $cat) { ?>
-                                            <li><a class="dropdown-item" href="<?=get_term_link( $cat->slug, 'product_cat' );?>"><?=$cat->name;?></a></li>
-                                        <?php } ?>
-                                    </ul>
-                                </li>
-                            <?php    }
-                            ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Для клиента
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Сотрудничество</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Контакты</a>
-                            </li>
-                        </ul>
-                    </div>
+                        $args = array(
+                            'walker' => $walker,
+                            'theme_location' => 'main-menu',
+                            'container' => 'div',
+                            'container_id' => 'lg_navbar-wrapper',
+                            'menu_class' => 'navbar-nav me-auto mb-2 mb-lg-0',
+                            'depth' => 2,
+                            'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                            'add_li_class'  => 'nav-item'
+                        );
+
+                        wp_nav_menu( $args );
+                    ?>
                     <div id="lg_phone" class="d-flex flex-column align-items-end">
                         <a href="#" id="phone_link" class="d-flex flex-row">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

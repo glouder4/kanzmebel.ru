@@ -74,7 +74,7 @@
 
     gap: 35px;
 }
-#mobile_navigation #mobile_navigation-data #mobile_navigation-data_menu>ul>li>a.nav-link{
+#mobile_navigation #mobile_navigation-data #mobile_navigation-data_menu>ul>li>a{
     font-family: 'Inter';
     font-size: 18px;
     font-weight: 400;
@@ -145,7 +145,9 @@ li.dropdown>ul{
 
         border-bottom: 1px dashed #656F6B;
     }
-
+    #lg-menu #lg_navbar-wrapper>ul{
+        gap: 40px;
+    }
     #lg-menu #lg_navbar-wrapper>ul>li>a{
         font-family: 'Inter';
         font-size: 16px;
@@ -154,5 +156,8 @@ li.dropdown>ul{
         letter-spacing: 0em;
         text-align: center;
         color: #868482;
+    }
+    #lg-menu #lg_navbar-wrapper>ul>li.dropdown-item{
+
     }
 }

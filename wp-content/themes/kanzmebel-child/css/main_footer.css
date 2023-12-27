@@ -133,7 +133,8 @@
     }
 }
 
-#main_footer #md_footer #md_footer-categories{
+#main_footer #md_footer #md_footer-categories,
+#lg_footer-special_data{
     display: none;
 }
 @media (min-width: 1200px){
@@ -148,5 +149,22 @@
     }
     #main_footer #md_footer #md_footer-special_data {
         margin-top: 25px;
+
+        display: none!important;
+    }
+    #lg_footer-special_data{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    #main_footer #md_footer #lg_footer-special_data>p{
+        font-family: 'Inter';
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 19px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #fff9f959;
     }
 }

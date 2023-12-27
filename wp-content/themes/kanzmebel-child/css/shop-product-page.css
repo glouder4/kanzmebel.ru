@@ -1,0 +1,188 @@
+#product-page{
+    margin-top: 10px;
+}
+#product-page .woocommerce div.product div.images .flex-control-thumbs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    margin-top: 10px;
+}
+#product-page .woocommerce div.product div.images .flex-control-thumbs li{
+    width: 40px;
+}
+
+#product-page #product-main-data{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#product-page #product-main-data .product_name{
+    font-family: 'Inter';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#product-page #product-main-data .product_meta{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#product-page #product-main-data .product_meta>span,
+#product-page #product-main-data .product_meta>span>span{
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #777777;
+}
+#product-page #product-main-data #product-main-data-price{
+    flex-direction: column;
+}
+#product-page #product-main-data #product-main-data-price>.price{
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#product-page #product-main-data #product-main-data-price>form{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#product-page #product-main-data #product-main-data-price>form>button{
+    margin-left: 5px;
+}
+#product-page #product-main-data #product-main-data-price>form{
+    margin: 0;
+    margin-top: 10px;
+}
+
+#product-page #product-characters .woocommerce-tabs .panel>h2{
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+
+    margin-bottom: 10px;
+}
+#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes{
+    border: 0;
+}
+#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes,
+#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes>tbody{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+}
+#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes,
+#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes>tbody{
+    flex-direction: column;
+}
+#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes tr>th{
+    border: 0;
+}
+
+#product-page #product-main-info{
+    display: flex;
+    flex-direction: column;
+}
+.additional-data{
+
+}
+.additional-data .section-data>a.btn.link_btn{
+    background-color: #656F6B;
+    color:#FFF9F9;
+}
+.additional-data .section-data>a.btn.link_btn:hover{
+    background-color: unset;
+}
+
+.catalog .section_data .catalog-data>.catalog-data-products{
+    flex-direction: column;
+}
+
+#related_products{
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.catalog .section_data .catalog-data>.catalog-data-products>ul.products{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#related_products ul.products{
+    width: 100%;
+    height: 370px;
+}
+#related_products ul.products .catalog_item{
+    /*max-width: 220px;*/
+}
+#related_products ul.products .catalog_item>a{
+    width: 190px;
+}
+#related_products ul.products .catalog_item{
+    height: 335px;
+    align-items: center;
+}
+
+#related_products .catalog-data-products>h2{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555049;
+}
+#product-page #product-description{
+    margin-bottom: 50px;
+}
+@media(min-width: 991px){
+    #product-page #product-main-info>div.images{
+        max-width: 540px;
+    }
+    #product-page #product-main-info #characters{
+        max-width: calc(100% - 580px);
+    }
+    #product-page .woocommerce div.product div.images .flex-control-thumbs li{
+        width: 65px;
+    }
+    #product-page #product-main-info{
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+    #product-page #product-main-data{
+        margin-top: 0;
+    }
+}
+@media(min-width: 1200px) {
+    #product-page #product-main-data .product_name{
+        font-size: 24px;
+        line-height: 32.4px;
+    }
+    #product-page .woocommerce div.product div.images .flex-control-thumbs li {
+        width: 90px;
+    }
+}

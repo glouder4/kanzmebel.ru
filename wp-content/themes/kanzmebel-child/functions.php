@@ -185,6 +185,8 @@ function kanzmebel_theme_customize_register( $wp_customize ) {
             )
         )
     );
+
+
     /*$theme_settings->add_control(
         new WP_Customize_Image_Control(
             $wp_customize,
@@ -218,10 +220,19 @@ function kanzmebel_theme_customize_register( $wp_customize ) {
     $wp_customize->remove_control(); // удалить элемент управления*/
 }
 
+if( function_exists('acf_add_options_page') ) {
+    $args = array(
+        'page_title' => 'Настройки темы', //Заголовок страницы
+        'menu_title' => 'Настройки темы', //Заголовок в меню
+        'menu_slug' => 'theme-options', //Адрес страницы
+        'capability' => 'edit_posts', //Кто может редактировать
+    );
+    acf_add_options_page($args);
+}
 //Настройки шаблона
-add_filter('woocommerce_currency_symbol', 'misha_symbol_to_bukvi', 9999, 2);
+add_filter('woocommerce_currency_symbol', 'kanzmebel_theme_settings', 9999, 2);
 
-function misha_symbol_to_bukvi( $valyuta_symbol, $valyuta_code ) {
+function kanzmebel_theme_settings( $valyuta_symbol, $valyuta_code ) {
     if( $valyuta_code === 'RUB' ) {
         return 'р.';
     }
@@ -247,35 +258,51 @@ function theme_kazmebel_header_metadata() {
 add_action( 'wp_head', 'theme_kazmebel_header_metadata' );
 
 function kanzmebel_scripts(){
-    //wp_enqueue_script( 'jquery.min', get_stylesheet_directory_uri() . '/js/jquery-3.7.1.min.js' );
-    wp_enqueue_script( 'popper.min', get_stylesheet_directory_uri() . '/js/popper.min.js' );
-    wp_enqueue_script( 'bootstrap-5', get_stylesheet_directory_uri() . '/js/bootstrap/bootstrap.js' );
-    wp_enqueue_script( 'general', get_stylesheet_directory_uri() . '/js/general.js' );
+    if( !is_admin() ) {
+        //wp_enqueue_script( 'jquery.min', get_stylesheet_directory_uri() . '/js/jquery-3.7.1.min.js' );
+        wp_enqueue_script('popper.min', get_stylesheet_directory_uri() . '/js/popper.min.js');
+        wp_enqueue_script('bootstrap-5', get_stylesheet_directory_uri() . '/js/bootstrap/bootstrap.js');
+        wp_enqueue_script('fancybox', get_stylesheet_directory_uri() . '/js/fancybox.js');
+        wp_enqueue_script('general', get_stylesheet_directory_uri() . '/js/general.js', array('fancybox'));
 
 
-    wp_enqueue_style( 'bootstrap-5', get_stylesheet_directory_uri() . '/css/bootstrap/bootstrap.css' );
-    wp_enqueue_style( 'general', get_stylesheet_directory_uri() . '/css/general.css',array('bootstrap-5') );
-    wp_enqueue_style( 'main_header', get_stylesheet_directory_uri() . '/css/main_header.css',array('general'));
-    wp_enqueue_style( 'main_footer', get_stylesheet_directory_uri() . '/css/main_footer.css',array('general'));
+        wp_enqueue_style('bootstrap-5', get_stylesheet_directory_uri() . '/css/bootstrap/bootstrap.css');
+        wp_enqueue_style('general', get_stylesheet_directory_uri() . '/css/general.css', array('bootstrap-5'));
+        wp_enqueue_style('main_header', get_stylesheet_directory_uri() . '/css/main_header.css', array('general'));
+        wp_enqueue_style('main_footer', get_stylesheet_directory_uri() . '/css/main_footer.css', array('general'));
 
-    wp_enqueue_style( 'fancybox', get_stylesheet_directory_uri() . '/css/fancybox.css');
-    wp_enqueue_script( 'fancybox', get_stylesheet_directory_uri() . '/js/fancybox.js' );
+        wp_enqueue_style('fancybox', get_stylesheet_directory_uri() . '/css/fancybox.css');
 
-    // Главная страница
-    if( is_page(17) ){
-        wp_enqueue_style( 'main_page', get_stylesheet_directory_uri() . '/css/main_page.css',array('general'));
-        wp_enqueue_style( 'adaptive_slider', get_stylesheet_directory_uri() . '/css/adaptive_slider.css',array('main_page'));
-        wp_enqueue_style( 'shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css',array('general'));
-        wp_enqueue_style( 'shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css',array('shop_page'));
+        // Главная страница
+        if (is_page(17)) {
+            wp_enqueue_style('main_page', get_stylesheet_directory_uri() . '/css/main_page.css', array('general'));
+            wp_enqueue_style('adaptive_slider', get_stylesheet_directory_uri() . '/css/adaptive_slider.css', array('main_page'));
+            wp_enqueue_style('shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css', array('general'));
+            wp_enqueue_style('shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css', array('shop_page'));
 
-        wp_enqueue_script( 'adaptive_slider', get_stylesheet_directory_uri() . '/js/adaptive_slider.js' );
-        wp_enqueue_script( 'mainpage-index', get_stylesheet_directory_uri() . '/js/mainpage-index.js' );
-    }
-    if( is_shop() ){
-        wp_enqueue_style( 'shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css',array('general'));
-        wp_enqueue_style( 'shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css',array('shop_page'));
+            wp_enqueue_script('adaptive_slider', get_stylesheet_directory_uri() . '/js/adaptive_slider.js');
+            wp_enqueue_script('mainpage-index', get_stylesheet_directory_uri() . '/js/mainpage-index.js');
+        } else if (is_shop()) {
+            wp_enqueue_style('shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css', array('general'));
+            wp_enqueue_style('shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css', array('shop_page'));
 
-        wp_enqueue_script( 'shop-index', get_stylesheet_directory_uri() . '/js/shop-index.js' );
+            wp_enqueue_script('shop-index', get_stylesheet_directory_uri() . '/js/shop-index.js');
+        } else if (is_product_category()) {
+            wp_enqueue_style('shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css', array('general'));
+            wp_enqueue_style('shop_page-wc', get_stylesheet_directory_uri() . '/css/shop-page-wc.css', array('shop_page'));
+            wp_enqueue_style('shop_cat', get_stylesheet_directory_uri() . '/css/shop-cat.css', array('general', 'shop_page'));
+
+            wp_enqueue_script('shop-index', get_stylesheet_directory_uri() . '/js/shop-index.js');
+        } else if (is_product()) {
+            wp_enqueue_style('adaptive_slider', get_stylesheet_directory_uri() . '/css/adaptive_slider.css', array());
+            wp_enqueue_style('shop_page', get_stylesheet_directory_uri() . '/css/shop_page.css', array('general'));
+            wp_enqueue_style('shop_product_page', get_stylesheet_directory_uri() . '/css/shop-product-page.css', array('general'));
+
+            wp_enqueue_script('adaptive_slider', get_stylesheet_directory_uri() . '/js/adaptive_slider.js');
+            wp_enqueue_script('product-index', get_stylesheet_directory_uri() . '/js/product-index.js');
+        } else if (is_page()) {
+            wp_enqueue_style('another_page', get_stylesheet_directory_uri() . '/css/another_page.css', array());
+        }
     }
 }
 add_action( 'wp_enqueue_scripts', 'kanzmebel_scripts',25 );
@@ -442,4 +469,100 @@ function custom_modify_args($args = array()){
     $args['total_pages'] = ceil(count($ids)/$args['posts_per_page']);
 
     return $args;
+}
+
+
+add_filter( 'woocommerce_product_additional_information_heading', 'kanzmebel_rename_description_tab' );
+add_filter( 'woocommerce_product_related_products_heading', 'kanzmebel_rename_description_tab' );
+function kanzmebel_rename_description_tab( $title ) {
+    if( $title == 'Детали' ){
+        $title = 'Характеристики';
+    }
+    if( $title == 'Похожие товары' ){
+        $title = 'Смотрите также';
+    }
+    return $title;
+
+}
+
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+function kanzmebel_get_related_products_action(){
+    global $product;
+    if( ! is_a( $product, 'WC_Product' ) ){
+        $product = wc_get_product(get_the_id());
+    }
+    woocommerce_related_products( array(
+        'posts_per_page' => 4,
+        'columns'        => 4,
+        'orderby'        => 'rand'
+    ) );
+}
+add_action('kanzmebel_get_related_products','kanzmebel_get_related_products_action');
+
+
+add_action( 'after_setup_theme', 'remove_default_menu', 11 );
+
+// This theme uses wp_nav_menu() in two locations.
+register_nav_menus(
+    array(
+        'main-menu' => __( 'Основное меню', 'twentynineteen' ),
+        'footer-menu' => __( 'Меню в футере', 'twentynineteen' ),
+        'social' => __( 'Social Links Menu', 'twentynineteen' ),
+        'mobile-menu' => __( 'Мобильное меню', 'twentynineteen' ),
+    )
+);
+function remove_default_menu(){
+    unregister_nav_menu('menu-1');
+    unregister_nav_menu('footer');
+    unregister_nav_menu('social');
+}
+
+
+function add_additional_class_on_li($classes, $item, $args) {
+    if( in_array('menu-item-has-children',$classes) ){
+        $classes[] = 'dropdown';
+    }
+
+    if(isset($args->add_li_class)) {
+        $classes[] = $args->add_li_class;
+    }
+
+    if( $item->menu_item_parent > 0 ) {
+        $classes[] = 'dropdown-item';
+    }
+    return $classes;
+}
+add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
+
+add_filter( 'nav_menu_link_attributes', 'nav_menu_link_class', 10, 2 );
+function nav_menu_link_class( $atts, $item ) {
+    /*if( !$item->has_children && $item->menu_item_parent > 0 ) {
+        $class         = 'has-ripple';
+        $atts['class'] = $class;
+    }*/
+    if( !$item->has_children && $item->menu_item_parent > 0 ) {
+        $class = 'dropdown-item';
+        $atts['class'] = $class;
+    }
+    if( in_array('menu-item-has-children',$item->classes) ){
+        $atts['class'] = 'dropdown-toggle';
+        $atts['role'] = 'button';
+        $atts['data-bs-toggle'] = 'dropdown';
+        $atts['aria-expanded'] = 'false';
+    }
+    /*if( $item->ID == 162 ){
+        print_r($item);
+        die();
+    }*/
+
+    return $atts;
+}
+add_filter( 'nav_menu_submenu_css_class', 'wp_kama_nav_menu_submenu_css_class_filter', 10, 3 );
+
+function wp_kama_nav_menu_submenu_css_class_filter( $classes, $args, $depth ){
+    $classes[] = 'dropdown-menu';
+    return $classes;
+    // filter...
+    return $classes;
 }

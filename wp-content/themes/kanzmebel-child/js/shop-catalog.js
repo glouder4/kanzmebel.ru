@@ -25,10 +25,10 @@ export default class ShopPageCatalog extends Essentional{
             console.log('catalog-data-products is mismatch')
             return 'catalog-data-products is mismatch';
         }
-        if( document.getElementById('catalog-data-pagination') == undefined ){
+        /*if( document.getElementById('catalog-data-pagination') == undefined ){
             console.log('catalog-data-pagination is mismatch')
             return 'catalog-data-pagination is mismatch';
-        }
+        }*/
         if( document.getElementById('filters-submit_btn') == undefined ){
             console.log('filters-submit_btn is mismatch')
             return 'filters-submit_btn is mismatch';
@@ -40,7 +40,7 @@ export default class ShopPageCatalog extends Essentional{
         this.filters = filters;
         this.load_products  = load_products;
         this.endpoint = this.catalog.getAttribute('data-endpoint');
-        this.pagination = document.getElementById('catalog-data-pagination');
+        //this.pagination = document.getElementById('catalog-data-pagination');
 
         this.catalog_page = 0;
 
@@ -215,16 +215,16 @@ export default class ShopPageCatalog extends Essentional{
     appendProducts(data){
         let _this = this;
         document.getElementById('catalog-data-products').innerHTML = '';
-        this.pagination.innerHTML = '';
+        //this.pagination.innerHTML = '';
         this.appendHtml(document.getElementById('catalog-data-products'),data);
         //this.appendHtml(this.pagination,data['pagination']);
 
 
-        Array.from(_this.pagination.querySelectorAll('.pagination')).map(function(paginate){
+        /*Array.from(_this.pagination.querySelectorAll('.pagination')).map(function(paginate){
             paginate.addEventListener('click',function(){
                 _this.catalog_page = paginate.getAttribute('data-page');
                 _this.applyFilters();
             });
-        });
+        });*/
     }
 }
