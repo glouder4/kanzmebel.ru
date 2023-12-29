@@ -83,7 +83,7 @@
             <div id="md_footer-logo">
                 <img src="<?=get_theme_mod( 'main_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
 
-                <div id="lg_footer-special_data" class="w-100 d-flex justify-content-between">
+                <div id="lg_footer-special_data" class="w-100 justify-content-between">
                     <?php
                     $additional_data =  get_field('о_компании', 'option');
                     ?>
