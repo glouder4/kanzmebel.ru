@@ -1,4 +1,6 @@
 <?php
+ini_set ( 'display_errors', 1 );
+error_reporting ( E_ALL );
 
 remove_theme_support( 'automatic-feed-links' );
 remove_theme_support( 'html5' );
@@ -298,14 +300,7 @@ function kanzmebel_scripts(){
 
             wp_enqueue_script('adaptive_slider', get_stylesheet_directory_uri() . '/js/adaptive_slider.js');
             wp_enqueue_script('product-index', get_stylesheet_directory_uri() . '/js/product-index.js');
-        }
-        else if(is_cart()){
-            wp_enqueue_style('cart_page', get_stylesheet_directory_uri() . '/css/cart_page.css', array());
-        }
-        else if(is_checkout()){
-            wp_enqueue_style('checkout_page', get_stylesheet_directory_uri() . '/css/checkout_page.css', array());
-        }
-        else if (is_page()) {
+        } else if (is_page()) {
             wp_enqueue_style('another_page', get_stylesheet_directory_uri() . '/css/another_page.css', array());
         }
     }
@@ -570,30 +565,4 @@ function wp_kama_nav_menu_submenu_css_class_filter( $classes, $args, $depth ){
     return $classes;
     // filter...
     return $classes;
-}
-add_filter( 'use_block_editor_for_post_type', '__return_false' );
-
-add_filter( 'woocommerce_checkout_fields', 'truemisha_del_fields', 25 );
-
-function truemisha_del_fields( $fields ) {
-
-    // оставляем эти поля
-    // unset( $fields[ 'billing' ][ 'billing_first_name' ] ); // имя
-    // unset( $fields[ 'billing' ][ 'billing_last_name' ] ); // фамилия
-    // unset( $fields[ 'billing' ][ 'billing_phone' ] ); // телефон
-    // unset( $fields[ 'billing' ][ 'billing_email' ] ); // емайл
-    //$fields[ 'billing' ][ 'billing_address_1' ]['placeholder'] = 'Адрес доставки';
-
-    // удаляем все эти поля
-    unset( $fields[ 'billing' ][ 'billing_company' ] ); // компания
-    //unset( $fields[ 'billing' ][ 'billing_country' ] ); // страна
-    //unset( $fields[ 'billing' ][ 'billing_address_1' ] ); // адрес 1
-    unset( $fields[ 'billing' ][ 'billing_address_2' ] ); // адрес 2
-    //unset( $fields[ 'billing' ][ 'billing_city' ] ); // город
-    unset( $fields[ 'billing' ][ 'billing_state' ] ); // регион, штат
-    unset( $fields[ 'billing' ][ 'billing_postcode' ] ); // почтовый индекс
-    unset( $fields[ 'order' ][ 'order_comments' ] ); // заметки к заказу
-
-    return $fields;
-
 }

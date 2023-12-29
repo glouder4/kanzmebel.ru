@@ -535,7 +535,7 @@ get_header();
                                 ?>
                             </div>
                             <div id="page-data-form">
-                                <form action="#" class="custom_smtp_form">
+                                <form action="#">
                                     <div class="form-group">
                                         <input type="name" placeholder="Ваше Имя" />
                                     </div>
@@ -546,10 +546,8 @@ get_header();
                                         <input type="email" placeholder="Ваша почта" />
                                     </div>
 
-                                    <input type="button" value="Отправить" class="btn smtp_send_form" />
+                                    <input type="submit" value="Отправить" class="btn" />
                                 </form>
-
-                                <?=do_shortcode('[contact-form-7 id="753446c" title="Contact form 1"]');?>
                             </div>
 
                             <?php if (has_post_thumbnail( get_the_id() ) ): ?>
@@ -669,43 +667,9 @@ get_header();
             </div>
             <?php
         }
-        else if(is_cart()){ ?>
-            <div id="primary" class="content-area">
-                <main id="cart_main" class="site-main">
-
-                    <div class="container">
-                        <?php
-
-                        echo do_shortcode('[woocommerce_cart]');
-                        //wc_get_template_part('woocommerce/cart/cart.php');
-                        //get_template_part( 'template-parts/content/content', 'page' );
-
-                        ?>
-                    </div>
-
-                </main><!-- #main -->
-            </div><!-- #primary -->
-        <?php }
-        else if(is_checkout()){ ?>
-            <div id="primary" class="content-area">
-                <main id="checkout_main" class="site-main">
-
-                    <div class="container">
-                        <?php
-
-                        echo do_shortcode('[woocommerce_checkout]');
-                        //wc_get_template_part('woocommerce/cart/cart.php');
-                        //get_template_part( 'template-parts/content/content', 'page' );
-
-                        ?>
-                    </div>
-
-                </main><!-- #main -->
-            </div><!-- #primary -->
-        <?php }
         else{ ?>
             <div id="primary" class="content-area">
-                <main id="main" class="site-main">
+                <main id="main123" class="site-main">
 
                     <div class="container">
                         <?php
