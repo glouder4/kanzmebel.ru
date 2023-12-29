@@ -1,7 +1,7 @@
-#product-page{
+#single-page{
     margin-top: 10px;
 }
-#product-page .woocommerce div.product div.images .flex-control-thumbs{
+#single-page .woocommerce div.product div.images .flex-control-thumbs{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -9,15 +9,15 @@
 
     margin-top: 10px;
 }
-#product-page .woocommerce div.product div.images .flex-control-thumbs li{
+#single-page .woocommerce div.product div.images .flex-control-thumbs li{
     width: 40px;
 }
 
-#product-page #product-main-data{
+#single-page #product-main-data{
     margin-top: 20px;
     margin-bottom: 10px;
 }
-#product-page #product-main-data .product_name{
+#single-page #product-main-data .product_name{
     font-family: 'Inter';
     font-size: 20px;
     font-weight: 500;
@@ -26,7 +26,7 @@
     text-align: left;
     color: #555049;
 }
-#product-page #product-main-data .product_meta{
+#single-page #product-main-data .product_meta{
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -34,8 +34,8 @@
     margin-top: 10px;
     margin-bottom: 20px;
 }
-#product-page #product-main-data .product_meta>span,
-#product-page #product-main-data .product_meta>span>span{
+#single-page #product-main-data .product_meta>span,
+#single-page #product-main-data .product_meta>span>span{
     font-family: 'Inter';
     font-size: 12px;
     font-weight: 300;
@@ -44,10 +44,10 @@
     text-align: left;
     color: #777777;
 }
-#product-page #product-main-data #product-main-data-price{
+#single-page #product-main-data #product-main-data-price{
     flex-direction: column;
 }
-#product-page #product-main-data #product-main-data-price>.price{
+#single-page #product-main-data #product-main-data-price>.price{
     font-family: 'Inter';
     font-size: 16px;
     font-weight: 600;
@@ -56,20 +56,20 @@
     text-align: left;
     color: #555049;
 }
-#product-page #product-main-data #product-main-data-price form{
+#single-page #product-main-data #product-main-data-price form{
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
-#product-page #product-main-data #product-main-data-price form>button{
+#single-page #product-main-data #product-main-data-price form>button{
     margin-left: 5px;
 }
-#product-page #product-main-data #product-main-data-price form{
+#single-page #product-main-data #product-main-data-price form{
     margin: 0;
     margin-top: 10px;
 }
 
-#product-page #product-characters .woocommerce-tabs .panel>h2{
+#single-page #product-characters .woocommerce-tabs .panel>h2{
     font-family: 'Inter';
     font-size: 18px;
     font-weight: 600;
@@ -80,25 +80,25 @@
 
     margin-bottom: 10px;
 }
-#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes{
+#single-page #product-characters .woocommerce-tabs .panel>table.shop_attributes{
     border: 0;
 }
-#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes,
-#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes>tbody{
+#single-page #product-characters .woocommerce-tabs .panel>table.shop_attributes,
+#single-page #product-characters .woocommerce-tabs .panel>table.shop_attributes>tbody{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     width: 100%;
 }
-#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes,
-#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes>tbody{
+#single-page #product-characters .woocommerce-tabs .panel>table.shop_attributes,
+#single-page #product-characters .woocommerce-tabs .panel>table.shop_attributes>tbody{
     flex-direction: column;
 }
-#product-page #product-characters .woocommerce-tabs .panel>table.shop_attributes tr>th{
+#single-page #product-characters .woocommerce-tabs .panel>table.shop_attributes tr>th{
     border: 0;
 }
 
-#product-page #product-main-info{
+#single-page #product-main-info{ 
     display: flex;
     flex-direction: column;
 }
@@ -155,34 +155,34 @@
     text-align: left;
     color: #555049;
 }
-#product-page #product-description{
+#single-page #product-description{
     margin-bottom: 50px;
 }
 @media(min-width: 991px){
-    #product-page #product-main-info>div.images{
+    #single-page #product-main-info>div.images{
         max-width: 540px;
     }
-    #product-page #product-main-info #characters{
+    #single-page #product-main-info #characters{
         max-width: calc(100% - 580px);
     }
-    #product-page .woocommerce div.product div.images .flex-control-thumbs li{
+    #single-page .woocommerce div.product div.images .flex-control-thumbs li{
         width: 65px;
     }
-    #product-page #product-main-info{
+    #single-page #product-main-info{
         flex-direction: row;
         flex-wrap: wrap;
         gap: 40px;
     }
-    #product-page #product-main-data{
+    #single-page #product-main-data{
         margin-top: 0;
     }
 }
 @media(min-width: 1200px) {
-    #product-page #product-main-data .product_name{
+    #single-page #product-main-data .product_name{
         font-size: 24px;
         line-height: 32.4px;
     }
-    #product-page .woocommerce div.product div.images .flex-control-thumbs li {
+    #single-page .woocommerce div.product div.images .flex-control-thumbs li {
         width: 90px;
     }
 }

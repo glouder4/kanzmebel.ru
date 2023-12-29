@@ -120,20 +120,23 @@ get_header();
                                         // полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
                                     ] );
 
-                                    if( $categories ) {
-                                        ?>
-                                        <ul class="mt-3">
+                                   if( $categories ) {
+                                       echo '<ul class="mt-3">';
+                                      foreach ($categories as $cat) { ?>
+
                                             <?php
-                                            foreach ($categories as $cat) { ?>
-
-                                                <li class="category-item" data-id="<?=$cat->term_id;?>">
-                                                    <input type="checkbox" class="taxonomy" name="taxonomy-<?=$cat->term_id;?>" data-id="<?=$cat->slug;?>"/> <?=$cat->name;?>
-                                                </li>
-
-                                            <?php    }
+                                                if( $cat->parent == 0 ):
                                             ?>
-                                        </ul>
-                                    <?php }
+                                                <li class="category-item ps-0" data-id="<?=$cat->term_id;?>">
+                                                    <a href="<?=esc_url(get_category_link($cat->term_id));?>"> <?=$cat->name;?></a>
+                                                </li>
+                                            <?php
+                                                endif;
+                                            ?>
+
+                                    <?php    }
+                                       echo '</ul>';
+                                    }
                                     ?>
                                 </div>
 
@@ -179,7 +182,7 @@ get_header();
                         <div id="catalog-data" class="catalog-data">
                             <div id="catalog-data-products" class="catalog-data-products">
                                 <div class="woocommerce">
-                                    <ul class="products">
+                                    <ul class="products mt-0">
                                         <?php
                                         // Start the Loop.
                                         //while ( have_posts() ) :
@@ -236,15 +239,15 @@ get_header();
 
 
             if( count($args['include_product_ids']) > 0 ){
-            $products       = wc_get_products(array(
-            'meta_key'             => '_price',
-            'status'               => 'publish',
-            'limit'                => $args['posts_per_page'],
-            'page'                 => $args['current_page'],
-            'paginate'             => true,
-            'return'               => 'object',
-            'include' => $args['include_product_ids']
-            ));
+                $products       = wc_get_products(array(
+                    'meta_key'             => '_price',
+                    'status'               => 'publish',
+                    'limit'                => $args['posts_per_page'],
+                    'page'                 => $args['current_page'],
+                    'paginate'             => true,
+                    'return'               => 'object',
+                    'include' => $args['include_product_ids']
+                ));
             }
             else $products = null;
             ?>
@@ -299,36 +302,71 @@ get_header();
                                 <div id="categories">
                                     <span class="h5">Категории</span>
                                     <?php
-                                    $categories = get_categories( [
-                                        'taxonomy'     => 'product_cat',
-                                        'type'         => 'post',
-                                        'child_of'     => 0,
-                                        'parent'       => '',
-                                        'orderby'      => 'name',
-                                        'order'        => 'ASC',
-                                        'hide_empty'   => 1,
-                                        'hierarchical' => 1,
-                                        'exclude'      => '',
-                                        'include'      => '',
-                                        'pad_counts'   => false,
-                                        // полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
-                                    ] );
+                                    if (is_product_category()){
+                                        $categories = get_categories([
+                                            'taxonomy' => 'product_cat',
+                                            'type' => 'post',
+                                            'child_of' => $args['parent_category'],
+                                            'parent' => '',
+                                            'orderby' => 'name',
+                                            'order' => 'ASC',
+                                            'hide_empty' => 1,
+                                            'hierarchical' => 1,
+                                            'exclude' => '',
+                                            'include' => '',
+                                            'pad_counts' => false,
+                                            // полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
+                                        ]);
 
-                                    if( $categories ) {
+                                        $term_data = get_term_by( 'id', $args['parent_category'], 'product_cat' );
+                                    }
+                                    else {
+                                        $categories = get_categories([
+                                            'taxonomy' => 'product_cat',
+                                            'type' => 'post',
+                                            'child_of' => 0,
+                                            'parent' => '',
+                                            'orderby' => 'name',
+                                            'order' => 'ASC',
+                                            'hide_empty' => 1,
+                                            'hierarchical' => 1,
+                                            'exclude' => '',
+                                            'include' => '',
+                                            'pad_counts' => false,
+                                            // полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
+                                        ]);
+                                    }
+
                                         ?>
                                         <ul class="mt-3">
                                             <?php
-                                            foreach ($categories as $cat) { ?>
-
-                                                <li class="category-item" data-id="<?=$cat->term_id;?>">
-                                                    <input type="checkbox" class="taxonomy" name="taxonomy-<?=$cat->term_id;?>" data-id="<?=$cat->slug;?>"/> <?=$cat->name;?>
+                                                if (is_product_category()){
+                                            ?>
+                                                <li class="category-item parent-category_item" data-id="<?=$term_data->parent;?>">
+                                                    <a href="<?=($term_data->parent != 0) ? esc_url(get_category_link($term_data->parent)) : '/shop';?>"><- <?=($term_data->parent != 0) ? get_term_by( 'id', $term_data->parent, 'product_cat' )->name : 'Все категории';?></a>
                                                 </li>
+                                            <?php
+                                                }
+                                            ?>
+
+                                            <?php
+                                            if( $categories ) {
+                                                foreach ($categories as $cat) { ?>
+
+                                                <?php
+                                                   if( $cat->parent == $args['parent_category'] ):
+                                                ?>
+                                                    <li class="category-item" data-id="<?=$cat->term_id;?>">
+                                                        <a href="<?=esc_url(get_category_link($cat->term_id));?>"> <?=($term_data->parent != 0) ? '-' : '' ?> <?=$cat->name;?></a>
+                                                    </li>
+                                               <?php
+                                                   endif;
+                                               ?>
 
                                             <?php    }
+                                            }
                                             ?>
                                         </ul>
-                                    <?php }
-                                    ?>
                                 </div>
 
                                 <?php
@@ -412,26 +450,26 @@ get_header();
                     </div>
                 </div>
             </div>
-            <?php if( isset($interior) ): ?>
-            <section id="category-products_in_interior">
-                <div class="container">
-                    <div class="section-title">
-                        <h2 class="title"><?=$interior['заголовок'];?></h2>
+            <?php if( isset($interior['изображения']) && $interior['изображения'] !=  "" ): ?>
+                <section id="category-products_in_interior">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2 class="title"><?=$interior['заголовок'];?></h2>
+                        </div>
+                        <div class="section-data">
+                            <?php
+                            foreach($interior['изображения'] as $slide){ ?>
+                                <div class="slide">
+                                    <a href="<?=$slide['url'];?>" data-fancybox="interior">
+                                        <div class="slide_data">
+                                            <img src="<?=$slide['url'];?>" alt="<?=$slide['url'];?>">
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
-                    <div class="section-data">
-                        <?php
-                        foreach($interior['изображения'] as $slide){ ?>
-                            <div class="slide">
-                                <a href="<?=$slide['url'];?>" data-fancybox="interior">
-                                    <div class="slide_data">
-                                        <img src="<?=$slide['url'];?>" alt="<?=$slide['url'];?>">
-                                    </div>
-                                </a>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-            </section>
+                </section>
             <?php endif; ?>
 
             <section class="additional-data light-items" style="background-color: #656F6B; margin-top: 30px;">
@@ -487,7 +525,7 @@ get_header();
                 </div>
             </section>
             <?php endif; ?>
-            <?php if(isset($faqs)): ?>
+            <?php if(isset($faqs) && $faqs['вопрос'] != ""): ?>
             <section id="faqs">
                 <div class="container">
                     <div class="section-title">
@@ -535,20 +573,6 @@ get_header();
                                 ?>
                             </div>
                             <div id="page-data-form">
-                                <form action="#" class="custom_smtp_form">
-                                    <div class="form-group">
-                                        <input type="name" placeholder="Ваше Имя" />
-                                    </div>
-                                    <div class="form-group" type="phone">
-                                        <input type="phone" placeholder="+7 (999) 999 99-99">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" placeholder="Ваша почта" />
-                                    </div>
-
-                                    <input type="button" value="Отправить" class="btn smtp_send_form" />
-                                </form>
-
                                 <?=do_shortcode('[contact-form-7 id="753446c" title="Contact form 1"]');?>
                             </div>
 

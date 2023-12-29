@@ -308,6 +308,9 @@ function kanzmebel_scripts(){
         else if (is_page()) {
             wp_enqueue_style('another_page', get_stylesheet_directory_uri() . '/css/another_page.css', array());
         }
+        else if(is_single()){
+            wp_enqueue_style('single_page', get_stylesheet_directory_uri() . '/css/single-page.css', array());
+        }
     }
 }
 add_action( 'wp_enqueue_scripts', 'kanzmebel_scripts',25 );
@@ -396,15 +399,22 @@ function custom_modify_args($args = array()){
     }
 
     $taxonomies = null;
-    if( isset($_GET['taxonomies']) ){
 
-        $taxonomies = explode('_',$_GET['taxonomies']);
+    if (is_product_category()){
+        global $wp_query;
+        $taxonomies = array($wp_query->get_queried_object()->term_id);
     }
-    else if( isset($_POST['taxonomies']) ){
-        $taxonomies = explode('_',$_POST['taxonomies']);
-    }
-    else if( isset($post['taxonomies']) && $post['taxonomies'] != "" ){
-        $taxonomies = explode('_',$post['taxonomies']);
+    else{
+        if( isset($_GET['taxonomies']) ){
+
+            $taxonomies = explode('_',$_GET['taxonomies']);
+        }
+        else if( isset($_POST['taxonomies']) ){
+            $taxonomies = explode('_',$_POST['taxonomies']);
+        }
+        else if( isset($post['taxonomies']) && $post['taxonomies'] != "" ){
+            $taxonomies = explode('_',$post['taxonomies']);
+        }
     }
 
 
@@ -464,6 +474,12 @@ function custom_modify_args($args = array()){
         );
     }
 
+    if (is_product_category()){
+        global $wp_query;
+
+        $args['parent_category'] = $wp_query->get_queried_object()->term_id;
+    }
+
     $product_post_objects = get_posts($args);
 
     $ids = array_map(function($e) {
@@ -512,9 +528,9 @@ add_action( 'after_setup_theme', 'remove_default_menu', 11 );
 register_nav_menus(
     array(
         'main-menu' => __( 'Основное меню', 'twentynineteen' ),
-        'footer-menu' => __( 'Меню в футере', 'twentynineteen' ),
+        //'footer-menu' => __( 'Меню в футере', 'twentynineteen' ),
         'social' => __( 'Social Links Menu', 'twentynineteen' ),
-        'mobile-menu' => __( 'Мобильное меню', 'twentynineteen' ),
+        //'mobile-menu' => __( 'Мобильное меню', 'twentynineteen' ),
     )
 );
 function remove_default_menu(){

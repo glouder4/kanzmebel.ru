@@ -35,21 +35,21 @@
 			)
 		);
 
-		wp_link_pages(
+		/*wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . __( 'Pages:', 'twentynineteen' ),
 				'after'  => '</div>',
 			)
-		);
+		);*/
 		?>
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php twentynineteen_entry_footer(); ?>
+		<?php //twentynineteen_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 
 	<?php if ( ! is_singular( 'attachment' ) ) : ?>
-		<?php get_template_part( 'template-parts/post/author', 'bio' ); ?>
+		<?php //get_template_part( 'template-parts/post/author', 'bio' ); ?>
 	<?php endif; ?>
 
 </article><!-- #post-<?php the_ID(); ?> -->

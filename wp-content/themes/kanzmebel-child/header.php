@@ -33,19 +33,7 @@
             </div>
             <div class="modal-body">
                 <div id="modal-data-form">
-                    <form action="#">
-                        <div class="form-group">
-                            <input type="name" placeholder="Ваше Имя" />
-                        </div>
-                        <div class="form-group" type="phone">
-                            <input type="phone" placeholder="+7 (999) 999 99-99">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Ваша почта" />
-                        </div>
-
-                        <input type="submit" value="Отправить" class="btn" />
-                    </form>
+                    <?=do_shortcode('[contact-form-7 id="753446c" title="Contact form 1"]');?>
                 </div>
             </div>
         </div>

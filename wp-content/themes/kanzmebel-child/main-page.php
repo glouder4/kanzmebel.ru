@@ -129,13 +129,13 @@ if ( class_exists( 'WooCommerce' ) ) {
                                ?>
                                <ul class="mt-3">
                                    <?php
-                                   foreach ($categories as $cat) { ?>
+                                   foreach ($categories as $cat) { if($cat->parent == 0): ?>
 
                                        <li class="category-item" data-id="<?=$cat->term_id;?>">
                                            <input type="checkbox" class="taxonomy" name="taxonomy-<?=$cat->term_id;?>" data-id="<?=$cat->slug;?>"/> <?=$cat->name;?>
                                        </li>
 
-                                   <?php    }
+                                   <?php  endif;  }
                                    ?>
                                </ul>
                            <?php }
@@ -254,7 +254,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 <section class="additional-data" style="background-color: #EFEEED;">
     <div class="container">
         <div class="section-data">
-            <p>На фабрике Mister Room
+            <p>На фабрике <?=get_bloginfo('name');?>
                 работают перфекционисты
                 своего дела, каждый элемент
                 проходит многоэтапный контроль
@@ -366,11 +366,8 @@ if ( class_exists( 'WooCommerce' ) ) {
                         <div class="swiper-slide slide">
                             <a href="<?=$slide['основной_слайд'];?>" data-fancybox="interior" class="swiper-slide slide">
                                 <div class="slide_data">
-                                    <div class="main_slide">
-                                        <img src="<?=$slide['основной_слайд'];?>" alt="<?=$slide['основной_слайд'];?>">
-                                    </div>
                                     <div class="mobile_slide">
-                                        <img src="<?=$slide['мобильный_слайд'];?>" alt="<?=$slide['мобильный_слайд'];?>">
+                                        <img src="<?=$slide['основной_слайд'];?>" alt="<?=$slide['основной_слайд'];?>">
                                     </div>
                                 </div>
                             </a>
