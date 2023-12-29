@@ -1,0 +1,85 @@
+#checkout_page{
+}
+#checkout_form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+#checkout_form>div.woocommerce-NoticeGroup{
+    width: 100%;
+}
+#checkout_form tr.cart-subtotal,
+#billing_country_field,
+#checkout_form tr.woocommerce-shipping-totals.shipping{
+    display: none;
+}
+
+#checkout_form #order_review{
+    margin-top: 20px;
+}
+
+#checkout_form #customer_details,
+#checkout_form #order_review .shop_table.woocommerce-checkout-review-order-table,
+#checkout_form #payment{
+    max-width: 460px;
+}
+
+#checkout_form .form-row input.input-text{
+    border: 1px solid #555049;
+    color: #555049;
+    padding: 16px 20px;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+#checkout_form #customer_details #billing_phone_field>.woocommerce-input-wrapper{
+    position: relative;
+}
+#checkout_form #customer_details #billing_phone_field>.woocommerce-input-wrapper:before{
+    content: "";
+    position: absolute;
+    z-index: 5;
+    top: 4px;
+    left: 20px;
+    width: 20px;
+    height: 13px;
+    background-image: url('../assets/rf-flag.png');
+    background-size: 100% 100%;
+}
+#checkout_form #customer_details #billing_phone_field>.woocommerce-input-wrapper>input{
+    padding: 16px 50px;
+}
+
+#checkout_main p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received{
+    font-family: Inter;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-transform: uppercase;
+}
+#checkout_main ul.order_details{
+    margin-top: 20px;
+}
+#checkout_main section.woocommerce-order-details{
+    margin-top: 30px;
+}
+
+@media(min-width: 1200px){
+    #checkout_form{
+        margin-top: 20px;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
