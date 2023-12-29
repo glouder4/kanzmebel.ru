@@ -594,7 +594,7 @@ WHERE
 					if ( '' === $value ) {
 						$value = null;
 					} else {
-						$value = ( new \DateTime( $value ) )->format( 'Y-m-d H:i:s' );
+						$value = ( new \DateTime( $value ) )- format( 'Y-m-d H:i:s' );
 					}
 				} catch ( \Exception $e ) {
 					return new \WP_Error( $e->getMessage() );
@@ -605,7 +605,7 @@ WHERE
 					if ( '' === $value ) {
 						$value = null;
 					} else {
-						$value = ( new \DateTime( "@$value" ) )->format( 'Y-m-d H:i:s' );
+						$value = ( new \DateTime( "@$value" ) )- format( 'Y-m-d H:i:s' );
 					}
 				} catch ( \Exception $e ) {
 					return new \WP_Error( $e->getMessage() );
@@ -864,7 +864,7 @@ WHERE $where_clause
 			if ( '' === $row[ $alias ] || null === $row[ $alias ] ) {
 				$row[ $alias ] = null;
 			} else {
-				$row[ $alias ] = ( new \DateTime( "@{$row[ $alias ]}" ) )->format( 'Y-m-d H:i:s' );
+				$row[ $alias ] = ( new \DateTime( "@{$row[ $alias ]}" ) )- format( 'Y-m-d H:i:s' );
 			}
 			if ( '0000-00-00 00:00:00' === $row[ $destination_alias ] ) {
 				$row[ $destination_alias ] = null;

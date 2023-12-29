@@ -438,7 +438,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				}
 
 				$fields          = $this->get_fields( $query_args );
-				$join_selections = $this->format_join_selections( $fields, array( 'variation_id' ) );
+				$join_selections = $this- format_join_selections( $fields, array( 'variation_id' ) );
 				$ids_table       = $this->get_ids_table( $included_variations, 'variation_id' );
 
 				$this->add_sql_clause( 'select', $join_selections );

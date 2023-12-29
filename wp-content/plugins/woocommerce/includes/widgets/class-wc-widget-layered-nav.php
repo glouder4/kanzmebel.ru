@@ -44,7 +44,7 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 	/**
 	 * Outputs the settings update form.
 	 *
-	 * @see WP_Widget->form
+	 * @see WP_Widget- form
 	 *
 	 * @param array $instance Instance.
 	 */

@@ -33,19 +33,19 @@ class CronExpression_DayOfMonthField extends CronExpression_AbstractField
     {
         $tday = str_pad($targetDay, 2, '0', STR_PAD_LEFT);
         $target = new DateTime("$currentYear-$currentMonth-$tday");
-        $currentWeekday = (int) $target->format('N');
+        $currentWeekday = (int) $target- format('N');
 
         if ($currentWeekday < 6) {
             return $target;
         }
 
-        $lastDayOfMonth = $target->format('t');
+        $lastDayOfMonth = $target- format('t');
 
         foreach (array(-1, 1, -2, 2) as $i) {
             $adjusted = $targetDay + $i;
             if ($adjusted > 0 && $adjusted <= $lastDayOfMonth) {
                 $target->setDate($currentYear, $currentMonth, $adjusted);
-                if ($target->format('N') < 6 && $target->format('m') == $currentMonth) {
+                if ($target- format('N') < 6 && $target- format('m') == $currentMonth) {
                     return $target;
                 }
             }
@@ -62,11 +62,11 @@ class CronExpression_DayOfMonthField extends CronExpression_AbstractField
             return true;
         }
 
-        $fieldValue = $date->format('d');
+        $fieldValue = $date- format('d');
 
         // Check to see if this is the last day of the month
         if ($value == 'L') {
-            return $fieldValue == $date->format('t');
+            return $fieldValue == $date- format('t');
         }
 
         // Check to see if this is the nearest weekday to a particular value
@@ -74,14 +74,14 @@ class CronExpression_DayOfMonthField extends CronExpression_AbstractField
             // Parse the target day
             $targetDay = substr($value, 0, strpos($value, 'W'));
             // Find out if the current day is the nearest day of the week
-            return $date->format('j') == self::getNearestWeekday(
-                $date->format('Y'),
-                $date->format('m'),
+            return $date- format('j') == self::getNearestWeekday(
+                $date- format('Y'),
+                $date- format('m'),
                 $targetDay
-            )->format('j');
+            )- format('j');
         }
 
-        return $this->isSatisfied($date->format('d'), $value);
+        return $this->isSatisfied($date- format('d'), $value);
     }
 
     /**

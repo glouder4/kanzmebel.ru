@@ -182,10 +182,10 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 
 					$date_expires = $coupon->get_date_expires();
 					if ( is_a( $date_expires, 'DateTime' ) ) {
-						$date_expires     = $date_expires->format( TimeInterval::$iso_datetime_format );
+						$date_expires     = $date_expires- format( TimeInterval::$iso_datetime_format );
 						$date_expires_gmt = new \DateTime( $date_expires );
 						$date_expires_gmt->setTimezone( $gmt_timzone );
-						$date_expires_gmt = $date_expires_gmt->format( TimeInterval::$iso_datetime_format );
+						$date_expires_gmt = $date_expires_gmt- format( TimeInterval::$iso_datetime_format );
 					} else {
 						$date_expires     = '';
 						$date_expires_gmt = '';
@@ -193,10 +193,10 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 
 					$date_created = $coupon->get_date_created();
 					if ( is_a( $date_created, 'DateTime' ) ) {
-						$date_created     = $date_created->format( TimeInterval::$iso_datetime_format );
+						$date_created     = $date_created- format( TimeInterval::$iso_datetime_format );
 						$date_created_gmt = new \DateTime( $date_created );
 						$date_created_gmt->setTimezone( $gmt_timzone );
-						$date_created_gmt = $date_created_gmt->format( TimeInterval::$iso_datetime_format );
+						$date_created_gmt = $date_created_gmt- format( TimeInterval::$iso_datetime_format );
 					} else {
 						$date_created     = '';
 						$date_created_gmt = '';
@@ -272,7 +272,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				$fields    = $this->get_fields( $query_args );
 				$ids_table = $this->get_ids_table( $included_coupons, 'coupon_id' );
 
-				$this->add_sql_clause( 'select', $this->format_join_selections( $fields, array( 'coupon_id' ) ) );
+				$this->add_sql_clause( 'select', $this- format_join_selections( $fields, array( 'coupon_id' ) ) );
 				$this->add_sql_clause( 'from', '(' );
 				$this->add_sql_clause( 'from', $this->subquery->get_query_statement() );
 				$this->add_sql_clause( 'from', ") AS {$table_name}" );

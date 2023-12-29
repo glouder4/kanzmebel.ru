@@ -247,8 +247,8 @@ html body .dropdown .dropdown-menu.show{
     color: #555049;
 }
 
-#page-data-form>form,
-modal-data-form>form{
+#page-data-form form,
+modal-data-form form{
     display: flex;
     flex-direction: column;
     gap: 7px;
@@ -259,8 +259,8 @@ modal-data-form>form{
     margin-top: 10px;
     max-width: 460px;
 }
- #page-data-form>form input,
- #modal-data-form>form input{
+ #page-data-form form input,
+ #modal-data-form form input{
     border: 1px solid #555049;
     color: #555049;
 
@@ -273,13 +273,13 @@ modal-data-form>form{
     letter-spacing: 0em;
     text-align: left;
 }
-#modal-data-form>form{
+#modal-data-form form{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-#page-data-form>form input::placeholder,
-#modal-data-form>form input::placeholder{
+#page-data-form form input::placeholder,
+#modal-data-form form input::placeholder{
     font-family: 'Inter';
     font-size: 14px;
     font-weight: 300;
@@ -287,22 +287,22 @@ modal-data-form>form{
     letter-spacing: 0em;
     text-align: left;
 }
-#page-data-form>form input[type="phone"],
-#modal-data-form>form input[type="phone"]{
+#page-data-form form input[type="phone"],
+#modal-data-form form input[type="phone"]{
     padding-left: 50px;
 }
-#page-data-form>form>div,
-#page-data-form>form input,
-#modal-data-form>form>div,
-#modal-data-form>form input{
+#page-data-form form>div,
+#page-data-form form input,
+#modal-data-form form>div,
+#modal-data-form form input{
     width: 100%;
 }
-#page-data-form>form>div[type="phone"],
-#modal-data-form>form>div[type="phone"]{
+#page-data-form form>div[type="phone"],
+#modal-data-form form>div[type="phone"]{
     position: relative;
 }
-#page-data-form>form>div[type="phone"]:before,
-#modal-data-form>form>div[type="phone"]:before{
+#page-data-form form>div[type="phone"]:before,
+#modal-data-form form>div[type="phone"]:before{
     content: "";
 
     position: absolute;
@@ -317,8 +317,8 @@ modal-data-form>form{
     background-size: 100% 100%;
 
 }
-#page-data-form>form input[type="submit"],
-#modal-data-form>form input[type="submit"]{
+#page-data-form form input.smtp_send_form,
+#modal-data-form form input.smtp_send_form{
     background-color: #656F6B;
     width: fit-content;
     color: #FFF9F9;

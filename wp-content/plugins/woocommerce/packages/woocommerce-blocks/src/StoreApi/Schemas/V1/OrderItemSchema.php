@@ -53,7 +53,7 @@ class OrderItemSchema extends ItemSchema {
 			'sold_individually'    => $product->is_sold_individually(),
 			'permalink'            => $product->get_permalink(),
 			'images'               => $this->get_images( $product ),
-			'variation'            => $this->format_variation_data( $product->get_attributes(), $product ),
+			'variation'            => $this- format_variation_data( $product->get_attributes(), $product ),
 			'item_data'            => $order_item->get_all_formatted_meta_data(),
 			'prices'               => (object) $this->prepare_product_price_response( $product, get_option( 'woocommerce_tax_display_cart' ) ),
 			'totals'               => (object) $this->prepare_currency_response( $this->get_totals( $order_item ) ),

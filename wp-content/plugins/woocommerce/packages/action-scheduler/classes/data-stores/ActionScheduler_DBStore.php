@@ -503,7 +503,7 @@ AND `group_id` = %d
 		if ( $query['date'] instanceof \DateTime ) {
 			$date = clone $query['date'];
 			$date->setTimezone( new \DateTimeZone( 'UTC' ) );
-			$date_string  = $date->format( 'Y-m-d H:i:s' );
+			$date_string  = $date- format( 'Y-m-d H:i:s' );
 			$comparator   = $this->validate_sql_comparator( $query['date_compare'] );
 			$sql         .= " AND a.scheduled_date_gmt $comparator %s";
 			$sql_params[] = $date_string;
@@ -512,7 +512,7 @@ AND `group_id` = %d
 		if ( $query['modified'] instanceof \DateTime ) {
 			$modified = clone $query['modified'];
 			$modified->setTimezone( new \DateTimeZone( 'UTC' ) );
-			$date_string  = $modified->format( 'Y-m-d H:i:s' );
+			$date_string  = $modified- format( 'Y-m-d H:i:s' );
 			$comparator   = $this->validate_sql_comparator( $query['modified_compare'] );
 			$sql         .= " AND a.last_attempt_gmt $comparator %s";
 			$sql_params[] = $date_string;
@@ -812,7 +812,7 @@ AND `group_id` = %d
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$now = as_get_datetime_object();
-		$wpdb->insert( $wpdb->actionscheduler_claims, array( 'date_created_gmt' => $now->format( 'Y-m-d H:i:s' ) ) );
+		$wpdb->insert( $wpdb->actionscheduler_claims, array( 'date_created_gmt' => $now- format( 'Y-m-d H:i:s' ) ) );
 
 		return $wpdb->insert_id;
 	}
@@ -867,7 +867,7 @@ AND `group_id` = %d
 		$update = "UPDATE {$wpdb->actionscheduler_actions} SET claim_id=%d, last_attempt_gmt=%s, last_attempt_local=%s";
 		$params = array(
 			$claim_id,
-			$now->format( 'Y-m-d H:i:s' ),
+			$now- format( 'Y-m-d H:i:s' ),
 			current_time( 'mysql' ),
 		);
 
@@ -884,7 +884,7 @@ AND `group_id` = %d
 		}
 
 		$where    = 'WHERE claim_id = 0 AND scheduled_date_gmt <= %s AND status=%s';
-		$params[] = $date->format( 'Y-m-d H:i:s' );
+		$params[] = $date- format( 'Y-m-d H:i:s' );
 		$params[] = self::STATUS_PENDING;
 
 		if ( ! empty( $hooks ) ) {
@@ -993,7 +993,7 @@ AND `group_id` = %d
 
 		$action_ids  = array();
 		$before_date = isset( $this->claim_before_date ) ? $this->claim_before_date : as_get_datetime_object();
-		$cut_off     = $before_date->format( 'Y-m-d H:i:s' );
+		$cut_off     = $before_date- format( 'Y-m-d H:i:s' );
 
 		$sql = $wpdb->prepare(
 			"SELECT action_id, scheduled_date_gmt FROM {$wpdb->actionscheduler_actions} WHERE claim_id = %d ORDER BY priority ASC, attempts ASC, scheduled_date_gmt ASC, action_id ASC",

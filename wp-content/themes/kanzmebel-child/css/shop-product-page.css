@@ -56,15 +56,15 @@
     text-align: left;
     color: #555049;
 }
-#product-page #product-main-data #product-main-data-price>form{
+#product-page #product-main-data #product-main-data-price form{
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
-#product-page #product-main-data #product-main-data-price>form>button{
+#product-page #product-main-data #product-main-data-price form>button{
     margin-left: 5px;
 }
-#product-page #product-main-data #product-main-data-price>form{
+#product-page #product-main-data #product-main-data-price form{
     margin: 0;
     margin-top: 10px;
 }

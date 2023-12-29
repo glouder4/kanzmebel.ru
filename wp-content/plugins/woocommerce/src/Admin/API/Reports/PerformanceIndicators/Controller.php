@@ -156,7 +156,7 @@ class Controller extends GenericController {
 					$this->allowed_stats[]  = $stat;
 					$stat_label             = empty( $schema_info['title'] ) ? $schema_info['description'] : $schema_info['title'];
 					$this->labels[ $stat ]  = trim( $stat_label, '.' );
-					$this->formats[ $stat ] = isset( $schema_info['format'] ) ? $schema_info['format'] : 'number';
+					$this- formats[ $stat ] = isset( $schema_info['format'] ) ? $schema_info['format'] : 'number';
 				}
 
 				$this->endpoints[ $prefix ] = $endpoint['path'];
@@ -235,7 +235,7 @@ class Controller extends GenericController {
 			$this->allowed_stats[]        = $stat;
 			$this->labels[ $stat ]        = $item['label'];
 			$this->endpoints[ $endpoint ] = '/jetpack/v4/module/' . $item['module'] . '/data';
-			$this->formats[ $stat ]       = $item['format'];
+			$this- formats[ $stat ]       = $item['format'];
 		}
 
 		$this->urls['jetpack/stats'] = '/jetpack';
@@ -411,7 +411,7 @@ class Controller extends GenericController {
 			}
 
 			$data   = $response->get_data();
-			$format = $this->formats[ $stat ];
+			$format = $this- formats[ $stat ];
 			$label  = $this->labels[ $stat ];
 
 			if ( 200 !== $response->get_status() ) {

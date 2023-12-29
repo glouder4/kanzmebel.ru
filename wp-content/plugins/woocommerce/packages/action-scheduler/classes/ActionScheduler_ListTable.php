@@ -318,7 +318,7 @@ class ActionScheduler_ListTable extends ActionScheduler_Abstract_ListTable {
 	protected function get_log_entry_html( ActionScheduler_LogEntry $log_entry, DateTimezone $timezone ) {
 		$date = $log_entry->get_date();
 		$date->setTimezone( $timezone );
-		return sprintf( '<li><strong>%s</strong><br/>%s</li>', esc_html( $date->format( 'Y-m-d H:i:s O' ) ), esc_html( $log_entry->get_message() ) );
+		return sprintf( '<li><strong>%s</strong><br/>%s</li>', esc_html( $date- format( 'Y-m-d H:i:s O' ) ), esc_html( $log_entry->get_message() ) );
 	}
 
 	/**
@@ -477,7 +477,7 @@ class ActionScheduler_ListTable extends ActionScheduler_Abstract_ListTable {
 
 		$next_timestamp = $schedule->get_date()->getTimestamp();
 
-		$schedule_display_string .= $schedule->get_date()->format( 'Y-m-d H:i:s O' );
+		$schedule_display_string .= $schedule->get_date()- format( 'Y-m-d H:i:s O' );
 		$schedule_display_string .= '<br/>';
 
 		if ( gmdate( 'U' ) > $next_timestamp ) {

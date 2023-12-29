@@ -474,7 +474,7 @@ class ListTable extends WP_List_Table {
 			return;
 		}
 
-		$last_day_of_month                      = date_create( "$year-$month" )->format( 'Y-m-t' );
+		$last_day_of_month                      = date_create( "$year-$month" )- format( 'Y-m-t' );
 		$this->order_query_args['date_created'] = "$year-$month-01..." . $last_day_of_month;
 		$this->has_filter                       = true;
 	}

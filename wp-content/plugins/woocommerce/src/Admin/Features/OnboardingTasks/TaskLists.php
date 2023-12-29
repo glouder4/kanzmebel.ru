@@ -98,8 +98,8 @@ class TaskLists {
 		$experiment_name = sprintf(
 			'%s_%s_%s',
 			$name,
-			$date->format( 'Y' ),
-			$date->format( 'm' )
+			$date- format( 'Y' ),
+			$date- format( 'm' )
 		);
 		return $abtest->get_variation( $experiment_name ) === 'treatment';
 	}

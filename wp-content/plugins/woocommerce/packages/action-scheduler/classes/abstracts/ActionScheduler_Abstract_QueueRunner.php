@@ -189,7 +189,7 @@ abstract class ActionScheduler_Abstract_QueueRunner extends ActionScheduler_Abst
 		$query_args = array(
 			'hook'         => $action->get_hook(),
 			'status'       => ActionScheduler_Store::STATUS_FAILED,
-			'date'         => date_create( 'now', timezone_open( 'UTC' ) )->format( 'Y-m-d H:i:s' ),
+			'date'         => date_create( 'now', timezone_open( 'UTC' ) )- format( 'Y-m-d H:i:s' ),
 			'date_compare' => '<',
 			'per_page'     => 1,
 			'offset'       => $consistent_failure_threshold - 1

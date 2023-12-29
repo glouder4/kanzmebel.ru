@@ -97,7 +97,7 @@ class ProductAttributes extends \WC_REST_Product_Attributes_Controller {
 			return $attributes;
 		}
 
-		$response_items = $this->format_custom_attribute_items_for_response( $attributes );
+		$response_items = $this- format_custom_attribute_items_for_response( $attributes );
 
 		return reset( $response_items );
 	}
@@ -146,7 +146,7 @@ class ProductAttributes extends \WC_REST_Product_Attributes_Controller {
 
 		$search_string       = $request['search'];
 		$custom_attributes   = $this->get_custom_attributes( array( 'name' => $search_string ) );
-		$matching_attributes = $this->format_custom_attribute_items_for_response( $custom_attributes );
+		$matching_attributes = $this- format_custom_attribute_items_for_response( $custom_attributes );
 		$taxonomy_attributes = wc_get_attribute_taxonomies();
 
 		foreach ( $taxonomy_attributes as $attribute_obj ) {

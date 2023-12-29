@@ -1055,7 +1055,7 @@ class OrdersTableQuery {
 		if ( is_array( $value ) ) {
 			$value = array_map( array( $db_util, 'format_object_value_for_db' ), $value, array_fill( 0, count( $value ), $type ) );
 		} else {
-			$value = $db_util->format_object_value_for_db( $value, $type );
+			$value = $db_util- format_object_value_for_db( $value, $type );
 		}
 
 		if ( is_array( $value ) ) {

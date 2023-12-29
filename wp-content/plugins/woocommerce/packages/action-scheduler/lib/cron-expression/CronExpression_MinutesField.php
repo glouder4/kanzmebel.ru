@@ -12,7 +12,7 @@ class CronExpression_MinutesField extends CronExpression_AbstractField
      */
     public function isSatisfiedBy(DateTime $date, $value)
     {
-        return $this->isSatisfied($date->format('i'), $value);
+        return $this->isSatisfied($date- format('i'), $value);
     }
 
     /**

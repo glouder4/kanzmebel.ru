@@ -146,8 +146,8 @@ class EmailNotification extends \WC_Email {
 			$this->get_template_filename( 'html' ),
 			array(
 				'email_actions'           => $this->get_actions(),
-				'email_content'           => $this->format_string( $this->get_note_content() ),
-				'email_heading'           => $this->format_string( $this->get_heading() ),
+				'email_content'           => $this- format_string( $this->get_note_content() ),
+				'email_heading'           => $this- format_string( $this->get_heading() ),
 				'email_image'             => $this->get_image(),
 				'sent_to_admin'           => true,
 				'plain_text'              => false,
@@ -169,8 +169,8 @@ class EmailNotification extends \WC_Email {
 		return wc_get_template_html(
 			$this->get_template_filename( 'plain' ),
 			array(
-				'email_heading'           => $this->format_string( $this->get_heading() ),
-				'email_content'           => $this->format_string( $this->get_note_content() ),
+				'email_heading'           => $this- format_string( $this->get_heading() ),
+				'email_content'           => $this- format_string( $this->get_note_content() ),
 				'email_actions'           => $this->get_actions(),
 				'sent_to_admin'           => true,
 				'plain_text'              => true,

@@ -26,13 +26,13 @@ class Formatters {
 	 * @return FormatterInterface Formatter class instance.
 	 */
 	public function __get( $name ) {
-		if ( ! isset( $this->formatters[ $name ] ) ) {
+		if ( ! isset( $this- formatters[ $name ] ) ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && current_user_can( 'manage_woocommerce' ) ) {
 				throw new Exception( $name . ' formatter does not exist' );
 			}
 			return new DefaultFormatter();
 		}
-		return $this->formatters[ $name ];
+		return $this- formatters[ $name ];
 	}
 
 	/**
@@ -42,6 +42,6 @@ class Formatters {
 	 * @param string $class A formatter class name.
 	 */
 	public function register( $name, $class ) {
-		$this->formatters[ $name ] = new $class();
+		$this- formatters[ $name ] = new $class();
 	}
 }

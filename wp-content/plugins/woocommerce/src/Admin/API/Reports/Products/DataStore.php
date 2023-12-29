@@ -312,7 +312,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				}
 
 				$fields          = $this->get_fields( $query_args );
-				$join_selections = $this->format_join_selections( $fields, array( 'product_id' ) );
+				$join_selections = $this- format_join_selections( $fields, array( 'product_id' ) );
 				$ids_table       = $this->get_ids_table( $included_products, 'product_id' );
 
 				$this->subquery->clear_sql_clause( 'select' );

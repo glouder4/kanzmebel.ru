@@ -259,13 +259,13 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	protected function add_time_period_sql_params( $query_args, $table_name ) {
 		$where_time = '';
 		if ( $query_args['before'] ) {
-			$datetime_str = $query_args['before']->format( TimeInterval::$sql_datetime_format );
+			$datetime_str = $query_args['before']- format( TimeInterval::$sql_datetime_format );
 			$where_time  .= " AND {$table_name}.timestamp <= '$datetime_str'";
 
 		}
 
 		if ( $query_args['after'] ) {
-			$datetime_str = $query_args['after']->format( TimeInterval::$sql_datetime_format );
+			$datetime_str = $query_args['after']- format( TimeInterval::$sql_datetime_format );
 			$where_time  .= " AND {$table_name}.timestamp >= '$datetime_str'";
 		}
 

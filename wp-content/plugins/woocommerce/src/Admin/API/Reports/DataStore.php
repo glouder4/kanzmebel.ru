@@ -373,25 +373,25 @@ class DataStore extends SqlQuery {
 			$time_id    = TimeInterval::time_interval_id( $time_interval, $start_datetime );
 			// Either create fill-zero interval or use data from db.
 			if ( $next_start > $end_datetime ) {
-				$interval_end = $end_datetime->format( 'Y-m-d H:i:s' );
+				$interval_end = $end_datetime- format( 'Y-m-d H:i:s' );
 			} else {
-				$prev_end_timestamp = (int) $next_start->format( 'U' ) - 1;
+				$prev_end_timestamp = (int) $next_start- format( 'U' ) - 1;
 				$prev_end           = new \DateTime();
 				$prev_end->setTimestamp( $prev_end_timestamp );
 				$prev_end->setTimezone( $local_tz );
-				$interval_end = $prev_end->format( 'Y-m-d H:i:s' );
+				$interval_end = $prev_end- format( 'Y-m-d H:i:s' );
 			}
 			if ( array_key_exists( $time_id, $time_ids ) ) {
 				// For interval present in the db for this time frame, just fill in dates.
 				$record               = &$data->intervals[ $time_ids[ $time_id ] ];
-				$record['date_start'] = $start_datetime->format( 'Y-m-d H:i:s' );
+				$record['date_start'] = $start_datetime- format( 'Y-m-d H:i:s' );
 				$record['date_end']   = $interval_end;
 			} elseif ( ! array_key_exists( $time_id, $db_intervals ) ) {
 				// For intervals present in the db outside of this time frame, do nothing.
 				// For intervals not present in the db, fabricate it.
 				$record_arr                  = array();
 				$record_arr['time_interval'] = $time_id;
-				$record_arr['date_start']    = $start_datetime->format( 'Y-m-d H:i:s' );
+				$record_arr['date_start']    = $start_datetime- format( 'Y-m-d H:i:s' );
 				$record_arr['date_end']      = $interval_end;
 				$data->intervals[]           = array_merge( $record_arr, $totals_arr );
 			}
@@ -558,7 +558,7 @@ class DataStore extends SqlQuery {
 					$end_iteration = 0;
 				}
 				if ( $end_iteration ) {
-					$new_end_date_timestamp = (int) $new_end_date->format( 'U' ) - 1;
+					$new_end_date_timestamp = (int) $new_end_date- format( 'U' ) - 1;
 					$new_end_date->setTimestamp( $new_end_date_timestamp );
 				}
 			} else {
@@ -590,15 +590,15 @@ class DataStore extends SqlQuery {
 				}
 				if ( $start_iteration ) {
 					// @todo Is this correct? should it only be added if iterate runs? other two iterate instances, too?
-					$new_start_date_timestamp = (int) $new_start_date->format( 'U' ) + 1;
+					$new_start_date_timestamp = (int) $new_start_date- format( 'U' ) + 1;
 					$new_start_date->setTimestamp( $new_start_date_timestamp );
 				}
 			}
 			// @todo - Do this without modifying $query_args?
 			$query_args['adj_after']  = $new_start_date;
 			$query_args['adj_before'] = $new_end_date;
-			$adj_after                = $new_start_date->format( TimeInterval::$sql_datetime_format );
-			$adj_before               = $new_end_date->format( TimeInterval::$sql_datetime_format );
+			$adj_after                = $new_start_date- format( TimeInterval::$sql_datetime_format );
+			$adj_before               = $new_end_date- format( TimeInterval::$sql_datetime_format );
 			$this->interval_query->clear_sql_clause( array( 'where_time', 'limit' ) );
 			$this->interval_query->add_sql_clause( 'where_time', "AND {$table_name}.`{$this->date_column_name}` <= '$adj_before'" );
 			$this->interval_query->add_sql_clause( 'where_time', "AND {$table_name}.`{$this->date_column_name}` >= '$adj_after'" );
@@ -724,23 +724,23 @@ class DataStore extends SqlQuery {
 
 			$prev_start = TimeInterval::iterate( $datetime, $time_interval, true );
 			// @todo Not sure if the +1/-1 here are correct, especially as they are applied before the ?: below.
-			$prev_start_timestamp = (int) $prev_start->format( 'U' ) + 1;
+			$prev_start_timestamp = (int) $prev_start- format( 'U' ) + 1;
 			$prev_start->setTimestamp( $prev_start_timestamp );
 			if ( $start_datetime ) {
 				$date_start                      = $prev_start < $start_datetime ? $start_datetime : $prev_start;
-				$intervals[ $key ]['date_start'] = $date_start->format( 'Y-m-d H:i:s' );
+				$intervals[ $key ]['date_start'] = $date_start- format( 'Y-m-d H:i:s' );
 			} else {
-				$intervals[ $key ]['date_start'] = $prev_start->format( 'Y-m-d H:i:s' );
+				$intervals[ $key ]['date_start'] = $prev_start- format( 'Y-m-d H:i:s' );
 			}
 
 			$next_end           = TimeInterval::iterate( $datetime, $time_interval );
-			$next_end_timestamp = (int) $next_end->format( 'U' ) - 1;
+			$next_end_timestamp = (int) $next_end- format( 'U' ) - 1;
 			$next_end->setTimestamp( $next_end_timestamp );
 			if ( $end_datetime ) {
 				$date_end                      = $next_end > $end_datetime ? $end_datetime : $next_end;
-				$intervals[ $key ]['date_end'] = $date_end->format( 'Y-m-d H:i:s' );
+				$intervals[ $key ]['date_end'] = $date_end- format( 'Y-m-d H:i:s' );
 			} else {
-				$intervals[ $key ]['date_end'] = $next_end->format( 'Y-m-d H:i:s' );
+				$intervals[ $key ]['date_end'] = $next_end- format( 'Y-m-d H:i:s' );
 			}
 
 			$intervals[ $key ]['interval'] = $time_interval;
@@ -762,9 +762,9 @@ class DataStore extends SqlQuery {
 			$intervals[ $key ] = array(
 				'interval'       => $interval['time_interval'],
 				'date_start'     => $interval['date_start'],
-				'date_start_gmt' => $start_gmt->format( TimeInterval::$sql_datetime_format ),
+				'date_start_gmt' => $start_gmt- format( TimeInterval::$sql_datetime_format ),
 				'date_end'       => $interval['date_end'],
-				'date_end_gmt'   => $end_gmt->format( TimeInterval::$sql_datetime_format ),
+				'date_end_gmt'   => $end_gmt- format( TimeInterval::$sql_datetime_format ),
 			);
 
 			unset( $interval['interval'] );
@@ -792,7 +792,7 @@ class DataStore extends SqlQuery {
 			if ( is_a( $query_args['before'], 'WC_DateTime' ) ) {
 				$datetime_str = $query_args['before']->date( TimeInterval::$sql_datetime_format );
 			} else {
-				$datetime_str = $query_args['before']->format( TimeInterval::$sql_datetime_format );
+				$datetime_str = $query_args['before']- format( TimeInterval::$sql_datetime_format );
 			}
 			if ( isset( $this->subquery ) ) {
 				$this->subquery->add_sql_clause( 'where_time', "AND {$table_name}.`{$this->date_column_name}` <= '$datetime_str'" );
@@ -805,7 +805,7 @@ class DataStore extends SqlQuery {
 			if ( is_a( $query_args['after'], 'WC_DateTime' ) ) {
 				$datetime_str = $query_args['after']->date( TimeInterval::$sql_datetime_format );
 			} else {
-				$datetime_str = $query_args['after']->format( TimeInterval::$sql_datetime_format );
+				$datetime_str = $query_args['after']- format( TimeInterval::$sql_datetime_format );
 			}
 			if ( isset( $this->subquery ) ) {
 				$this->subquery->add_sql_clause( 'where_time', "AND {$table_name}.`{$this->date_column_name}` >= '$datetime_str'" );

@@ -184,7 +184,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 
 				$selections      = $this->selected_columns( array( 'fields' => $inner_selections ) );
 				$fields          = $this->get_fields( $query_args );
-				$join_selections = $this->format_join_selections( $fields, array( 'tax_rate_id' ), $outer_selections );
+				$join_selections = $this- format_join_selections( $fields, array( 'tax_rate_id' ), $outer_selections );
 				$ids_table       = $this->get_ids_table( $query_args['taxes'], 'tax_rate_id' );
 
 				$this->subquery->clear_sql_clause( 'select' );

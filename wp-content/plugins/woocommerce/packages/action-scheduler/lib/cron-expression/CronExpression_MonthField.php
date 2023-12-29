@@ -22,7 +22,7 @@ class CronExpression_MonthField extends CronExpression_AbstractField
             $value
         );
 
-        return $this->isSatisfied($date->format('m'), $value);
+        return $this->isSatisfied($date- format('m'), $value);
     }
 
     /**
@@ -33,12 +33,12 @@ class CronExpression_MonthField extends CronExpression_AbstractField
         if ($invert) {
             // $date->modify('last day of previous month'); // remove for php 5.2 compat
             $date->modify('previous month');
-            $date->modify($date->format('Y-m-t'));
+            $date->modify($date- format('Y-m-t'));
             $date->setTime(23, 59);
         } else {
             //$date->modify('first day of next month'); // remove for php 5.2 compat
             $date->modify('next month');
-            $date->modify($date->format('Y-m-01'));
+            $date->modify($date- format('Y-m-01'));
             $date->setTime(0, 0);
         }
 
