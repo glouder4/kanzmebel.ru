@@ -370,7 +370,7 @@ abstract class AbstractSchema {
 	 * @return array Monetary amounts with currency data appended.
 	 */
 	protected function prepare_currency_response( $values ) {
-		return $this->extend->get_formatter( 'currency' )- format( $values );
+		return $this->extend->get_formatter( 'currency' )->format( $values );
 	}
 
 	/**
@@ -383,7 +383,7 @@ abstract class AbstractSchema {
 	 * @return string      The new amount.
 	 */
 	protected function prepare_money_response( $amount, $decimals = 2, $rounding_mode = PHP_ROUND_HALF_UP ) {
-		return $this->extend->get_formatter( 'money' )- format(
+		return $this->extend->get_formatter( 'money' )->format(
 			$amount,
 			[
 				'decimals'      => $decimals,
@@ -399,6 +399,6 @@ abstract class AbstractSchema {
 	 * @return string|array Formatted data.
 	 */
 	protected function prepare_html_response( $response ) {
-		return $this->extend->get_formatter( 'html' )- format( $response );
+		return $this->extend->get_formatter( 'html' )->format( $response );
 	}
 }

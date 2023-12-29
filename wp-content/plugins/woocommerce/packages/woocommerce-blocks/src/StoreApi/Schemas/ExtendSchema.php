@@ -64,7 +64,7 @@ final class ExtendSchema {
 	 * @param Formatters $formatters An instance of the formatters class.
 	 */
 	public function __construct( Formatters $formatters ) {
-		$this- formatters = $formatters;
+		$this->formatters = $formatters;
 	}
 
 	/**
@@ -182,7 +182,7 @@ final class ExtendSchema {
 	 * @return FormatterInterface
 	 */
 	public function get_formatter( $name ) {
-		return $this- formatters->$name;
+		return $this->formatters->$name;
 	}
 
 	/**
@@ -270,7 +270,7 @@ final class ExtendSchema {
 					$this->throw_exception( $e );
 				}
 
-				$registered_schema[ $namespace ] = $this- format_extensions_properties( $namespace, $schema, $callbacks['schema_type'] );
+				$registered_schema[ $namespace ] = $this->format_extensions_properties( $namespace, $schema, $callbacks['schema_type'] );
 			}
 		}
 

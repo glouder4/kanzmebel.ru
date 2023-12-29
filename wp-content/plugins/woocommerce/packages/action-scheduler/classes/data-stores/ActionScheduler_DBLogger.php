@@ -25,9 +25,9 @@ class ActionScheduler_DBLogger extends ActionScheduler_Logger {
 			$date = clone $date;
 		}
 
-		$date_gmt = $date- format( 'Y-m-d H:i:s' );
+		$date_gmt = $date->format( 'Y-m-d H:i:s' );
 		ActionScheduler_TimezoneHelper::set_local_timezone( $date );
-		$date_local = $date- format( 'Y-m-d H:i:s' );
+		$date_local = $date->format( 'Y-m-d H:i:s' );
 
 		/** @var \wpdb $wpdb */ //phpcs:ignore Generic.Commenting.DocComment.MissingShort
 		global $wpdb;
@@ -136,9 +136,9 @@ class ActionScheduler_DBLogger extends ActionScheduler_Logger {
 		/** @var \wpdb $wpdb */ //phpcs:ignore Generic.Commenting.DocComment.MissingShort
 		global $wpdb;
 		$date     = as_get_datetime_object();
-		$date_gmt = $date- format( 'Y-m-d H:i:s' );
+		$date_gmt = $date->format( 'Y-m-d H:i:s' );
 		ActionScheduler_TimezoneHelper::set_local_timezone( $date );
-		$date_local = $date- format( 'Y-m-d H:i:s' );
+		$date_local = $date->format( 'Y-m-d H:i:s' );
 		$message    = __( 'action canceled', 'woocommerce' );
 		$format     = '(%d, ' . $wpdb->prepare( '%s, %s, %s', $message, $date_gmt, $date_local ) . ')';
 		$sql_query  = "INSERT {$wpdb->actionscheduler_logs} (action_id, message, log_date_gmt, log_date_local) VALUES ";

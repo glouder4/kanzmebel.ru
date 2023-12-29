@@ -33,20 +33,20 @@ class CronExpression_DayOfWeekField extends CronExpression_AbstractField
             $value
         );
 
-        $currentYear = $date- format('Y');
-        $currentMonth = $date- format('m');
-        $lastDayOfMonth = $date- format('t');
+        $currentYear = $date->format('Y');
+        $currentMonth = $date->format('m');
+        $lastDayOfMonth = $date->format('t');
 
         // Find out if this is the last specific weekday of the month
         if (strpos($value, 'L')) {
             $weekday = str_replace('7', '0', substr($value, 0, strpos($value, 'L')));
             $tdate = clone $date;
             $tdate->setDate($currentYear, $currentMonth, $lastDayOfMonth);
-            while ($tdate- format('w') != $weekday) {
+            while ($tdate->format('w') != $weekday) {
                 $tdate->setDate($currentYear, $currentMonth, --$lastDayOfMonth);
             }
 
-            return $date- format('j') == $lastDayOfMonth;
+            return $date->format('j') == $lastDayOfMonth;
         }
 
         // Handle # hash tokens
@@ -60,7 +60,7 @@ class CronExpression_DayOfWeekField extends CronExpression_AbstractField
                 throw new InvalidArgumentException('There are never more than 5 of a given weekday in a month');
             }
             // The current weekday must match the targeted weekday to proceed
-            if ($date- format('N') != $weekday) {
+            if ($date->format('N') != $weekday) {
                 return false;
             }
 
@@ -69,7 +69,7 @@ class CronExpression_DayOfWeekField extends CronExpression_AbstractField
             $dayCount = 0;
             $currentDay = 1;
             while ($currentDay < $lastDayOfMonth + 1) {
-                if ($tdate- format('N') == $weekday) {
+                if ($tdate->format('N') == $weekday) {
                     if (++$dayCount >= $nth) {
                         break;
                     }
@@ -77,7 +77,7 @@ class CronExpression_DayOfWeekField extends CronExpression_AbstractField
                 $tdate->setDate($currentYear, $currentMonth, ++$currentDay);
             }
 
-            return $date- format('j') == $currentDay;
+            return $date->format('j') == $currentDay;
         }
 
         // Handle day of the week values
@@ -93,7 +93,7 @@ class CronExpression_DayOfWeekField extends CronExpression_AbstractField
 
         // Test to see which Sunday to use -- 0 == 7 == Sunday
         $format = in_array(7, str_split($value)) ? 'N' : 'w';
-        $fieldValue = $date- format($format);
+        $fieldValue = $date->format($format);
 
         return $this->isSatisfied($fieldValue, $value);
     }

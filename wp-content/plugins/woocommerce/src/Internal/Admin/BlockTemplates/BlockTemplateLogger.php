@@ -242,7 +242,7 @@ class BlockTemplateLogger {
 					'id'   => $block->get_id(),
 					'name' => $block->get_name(),
 				),
-				'additional_info' => $this- format_info( $template_event['additional_info'] ),
+				'additional_info' => $this->format_info( $template_event['additional_info'] ),
 			);
 		}
 
@@ -283,7 +283,7 @@ class BlockTemplateLogger {
 				$template_event['additional_info']
 			);
 
-			$message = $this- format_message( $template_event['message'], $info );
+			$message = $this->format_message( $template_event['message'], $info );
 
 			$this->logger->log(
 				$template_event['level'],
@@ -409,7 +409,7 @@ class BlockTemplateLogger {
 			"%s\n%s",
 			$message,
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			print_r( $this- format_info( $info ), true ),
+			print_r( $this->format_info( $info ), true ),
 		);
 
 		return $formatted_message;
@@ -424,25 +424,25 @@ class BlockTemplateLogger {
 		$formatted_info = $info;
 
 		if ( isset( $info['exception'] ) && $info['exception'] instanceof \Exception ) {
-			$formatted_info['exception'] = $this- format_exception( $info['exception'] );
+			$formatted_info['exception'] = $this->format_exception( $info['exception'] );
 		}
 
 		if ( isset( $info['container'] ) ) {
 			if ( $info['container'] instanceof BlockContainerInterface ) {
-				$formatted_info['container'] = $this- format_block( $info['container'] );
+				$formatted_info['container'] = $this->format_block( $info['container'] );
 			} elseif ( $info['container'] instanceof BlockTemplateInterface ) {
-				$formatted_info['container'] = $this- format_template( $info['container'] );
+				$formatted_info['container'] = $this->format_template( $info['container'] );
 			} elseif ( $info['container'] instanceof BlockInterface ) {
-				$formatted_info['container'] = $this- format_block( $info['container'] );
+				$formatted_info['container'] = $this->format_block( $info['container'] );
 			}
 		}
 
 		if ( isset( $info['block'] ) && $info['block'] instanceof BlockInterface ) {
-			$formatted_info['block'] = $this- format_block( $info['block'] );
+			$formatted_info['block'] = $this->format_block( $info['block'] );
 		}
 
 		if ( isset( $info['template'] ) && $info['template'] instanceof BlockTemplateInterface ) {
-			$formatted_info['template'] = $this- format_template( $info['template'] );
+			$formatted_info['template'] = $this->format_template( $info['template'] );
 		}
 
 		return $formatted_info;
@@ -458,7 +458,7 @@ class BlockTemplateLogger {
 			'message' => $exception->getMessage(),
 			'source'  => "{$exception->getFile()}: {$exception->getLine()}",
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			'trace'   => print_r( $this- format_exception_trace( $exception->getTrace() ), true ),
+			'trace'   => print_r( $this->format_exception_trace( $exception->getTrace() ), true ),
 		);
 	}
 

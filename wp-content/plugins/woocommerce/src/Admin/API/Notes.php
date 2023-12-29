@@ -223,14 +223,14 @@ class Notes extends \WC_REST_CRUD_Controller {
 
 		$experiment_name = sprintf(
 			'woocommerce_tasklist_progression_headercard_%s_%s',
-			$date- format( 'Y' ),
-			$date- format( 'm' )
+			$date->format( 'Y' ),
+			$date->format( 'm' )
 		);
 
 		$experiment_name_2col = sprintf(
 			'woocommerce_tasklist_progression_headercard_2col_%s_%s',
-			$date- format( 'Y' ),
-			$date- format( 'm' )
+			$date->format( 'Y' ),
+			$date->format( 'm' )
 		);
 
 		return $abtest->get_variation( $experiment_name ) === 'treatment' ||

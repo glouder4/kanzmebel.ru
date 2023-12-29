@@ -379,7 +379,7 @@ class ActionScheduler_wpPostStore extends ActionScheduler_Store {
 		if ( $query['date'] instanceof DateTime ) {
 			$date = clone $query['date'];
 			$date->setTimezone( new DateTimeZone( 'UTC' ) );
-			$date_string  = $date- format( 'Y-m-d H:i:s' );
+			$date_string  = $date->format( 'Y-m-d H:i:s' );
 			$comparator   = $this->validate_sql_comparator( $query['date_compare'] );
 			$sql         .= " AND p.post_date_gmt $comparator %s";
 			$sql_params[] = $date_string;
@@ -388,7 +388,7 @@ class ActionScheduler_wpPostStore extends ActionScheduler_Store {
 		if ( $query['modified'] instanceof DateTime ) {
 			$modified = clone $query['modified'];
 			$modified->setTimezone( new DateTimeZone( 'UTC' ) );
-			$date_string  = $modified- format( 'Y-m-d H:i:s' );
+			$date_string  = $modified->format( 'Y-m-d H:i:s' );
 			$comparator   = $this->validate_sql_comparator( $query['modified_compare'] );
 			$sql         .= " AND p.post_modified_gmt $comparator %s";
 			$sql_params[] = $date_string;
@@ -682,7 +682,7 @@ class ActionScheduler_wpPostStore extends ActionScheduler_Store {
 			$where .= ' AND ID IN (' . join( ',', $ids ) . ')';
 		} else {
 			$where   .= ' AND post_date_gmt <= %s';
-			$params[] = $date- format( 'Y-m-d H:i:s' );
+			$params[] = $date->format( 'Y-m-d H:i:s' );
 		}
 
 		// Add the ORDER BY clause and,ms limit.
@@ -734,7 +734,7 @@ class ActionScheduler_wpPostStore extends ActionScheduler_Store {
 			),
 			'date_query'       => array(
 				'column'    => 'post_date_gmt',
-				'before'    => $date- format( 'Y-m-d H:i' ),
+				'before'    => $date->format( 'Y-m-d H:i' ),
 				'inclusive' => true,
 			),
 			'tax_query'        => array( // phpcs:ignore WordPress.DB.SlowDBQuery
@@ -766,7 +766,7 @@ class ActionScheduler_wpPostStore extends ActionScheduler_Store {
 
 		$action_ids  = array();
 		$before_date = isset( $this->claim_before_date ) ? $this->claim_before_date : as_get_datetime_object();
-		$cut_off     = $before_date- format( 'Y-m-d H:i:s' );
+		$cut_off     = $before_date->format( 'Y-m-d H:i:s' );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$results = $wpdb->get_results(

@@ -36,14 +36,14 @@ trait BlockFormattedTemplateTrait {
 	 * Get the block hide conditions formatted for inclusion in a formatted template.
 	 */
 	private function get_formatted_hide_conditions(): array {
-		return $this- format_conditions( $this->get_hide_conditions() );
+		return $this->format_conditions( $this->get_hide_conditions() );
 	}
 
 	/**
 	 * Get the block disable conditions formatted for inclusion in a formatted template.
 	 */
 	private function get_formatted_disable_conditions(): array {
-		return $this- format_conditions( $this->get_disable_conditions() );
+		return $this->format_conditions( $this->get_disable_conditions() );
 	}
 
 	/**

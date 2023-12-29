@@ -219,13 +219,13 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 
 			if ( ! empty( $query_args[ $before_arg ] ) ) {
 				$datetime     = new \DateTime( $query_args[ $before_arg ] );
-				$datetime_str = $datetime- format( TimeInterval::$sql_datetime_format );
+				$datetime_str = $datetime->format( TimeInterval::$sql_datetime_format );
 				$subclauses[] = "{$column_name} <= '$datetime_str'";
 			}
 
 			if ( ! empty( $query_args[ $after_arg ] ) ) {
 				$datetime     = new \DateTime( $query_args[ $after_arg ] );
-				$datetime_str = $datetime- format( TimeInterval::$sql_datetime_format );
+				$datetime_str = $datetime->format( TimeInterval::$sql_datetime_format );
 				$subclauses[] = "{$column_name} >= '$datetime_str'";
 			}
 

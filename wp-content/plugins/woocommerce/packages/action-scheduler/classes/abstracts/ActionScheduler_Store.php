@@ -261,7 +261,7 @@ abstract class ActionScheduler_Store extends ActionScheduler_Store_Deprecated {
 		}
 		$next->setTimezone( new DateTimeZone( 'UTC' ) );
 
-		return $next- format( 'Y-m-d H:i:s' );
+		return $next->format( 'Y-m-d H:i:s' );
 	}
 
 	/**
@@ -278,7 +278,7 @@ abstract class ActionScheduler_Store extends ActionScheduler_Store_Deprecated {
 		}
 
 		ActionScheduler_TimezoneHelper::set_local_timezone( $next );
-		return $next- format( 'Y-m-d H:i:s' );
+		return $next->format( 'Y-m-d H:i:s' );
 	}
 
 	/**

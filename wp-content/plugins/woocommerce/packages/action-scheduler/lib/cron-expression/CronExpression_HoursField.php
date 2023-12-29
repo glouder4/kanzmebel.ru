@@ -12,7 +12,7 @@ class CronExpression_HoursField extends CronExpression_AbstractField
      */
     public function isSatisfiedBy(DateTime $date, $value)
     {
-        return $this->isSatisfied($date- format('H'), $value);
+        return $this->isSatisfied($date->format('H'), $value);
     }
 
     /**
@@ -27,10 +27,10 @@ class CronExpression_HoursField extends CronExpression_AbstractField
         $date->setTimezone(new DateTimeZone('UTC'));
         if ($invert) {
             $date->modify('-1 hour');
-            $date->setTime($date- format('H'), 59);
+            $date->setTime($date->format('H'), 59);
         } else {
             $date->modify('+1 hour');
-            $date->setTime($date- format('H'), 0);
+            $date->setTime($date->format('H'), 0);
         }
         $date->setTimezone($timezone);
 

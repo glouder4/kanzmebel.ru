@@ -63,7 +63,7 @@ class CartItemSchema extends ItemSchema {
 			'sold_individually'    => $product->is_sold_individually(),
 			'permalink'            => $product_permalink,
 			'images'               => $this->get_images( $product ),
-			'variation'            => $this- format_variation_data( $cart_item['variation'], $product ),
+			'variation'            => $this->format_variation_data( $cart_item['variation'], $product ),
 			'item_data'            => $this->get_item_data( $cart_item ),
 			'prices'               => (object) $this->prepare_product_price_response( $product, get_option( 'woocommerce_tax_display_cart' ) ),
 			'totals'               => (object) $this->prepare_currency_response(
@@ -110,7 +110,7 @@ class CartItemSchema extends ItemSchema {
 					continue 2;
 				}
 			}
-			$clean_item_data[] = $this- format_item_data_element( $data );
+			$clean_item_data[] = $this->format_item_data_element( $data );
 		}
 		return $clean_item_data;
 	}

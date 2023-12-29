@@ -99,7 +99,7 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 		$address['address_1']  = sanitize_text_field( wp_unslash( $address['address_1'] ) );
 		$address['address_2']  = sanitize_text_field( wp_unslash( $address['address_2'] ) );
 		$address['city']       = sanitize_text_field( wp_unslash( $address['city'] ) );
-		$address['state']      = $validation_util- format_state( sanitize_text_field( wp_unslash( $address['state'] ) ), $address['country'] );
+		$address['state']      = $validation_util->format_state( sanitize_text_field( wp_unslash( $address['state'] ) ), $address['country'] );
 		$address['postcode']   = $address['postcode'] ? wc_format_postcode( sanitize_text_field( wp_unslash( $address['postcode'] ) ), $address['country'] ) : '';
 		$address['phone']      = sanitize_text_field( wp_unslash( $address['phone'] ) );
 		return $address;

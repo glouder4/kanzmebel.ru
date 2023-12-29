@@ -26,7 +26,7 @@ class ActionScheduler_DateTime extends DateTime {
 	 */
 	#[\ReturnTypeWillChange]
 	public function getTimestamp() {
-		return method_exists( 'DateTime', 'getTimestamp' ) ? parent::getTimestamp() : $this- format( 'U' );
+		return method_exists( 'DateTime', 'getTimestamp' ) ? parent::getTimestamp() : $this->format( 'U' );
 	}
 
 	/**

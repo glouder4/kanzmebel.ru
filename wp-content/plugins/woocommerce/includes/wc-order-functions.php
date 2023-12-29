@@ -414,7 +414,7 @@ function wc_downloadable_file_permission( $download_id, $product, $order, $qty =
 	$expiry = $product->get_download_expiry();
 
 	if ( $expiry > 0 ) {
-		$from_date = $order->get_date_completed() ? $order->get_date_completed()- format( 'Y-m-d' ) : current_time( 'mysql', true );
+		$from_date = $order->get_date_completed() ? $order->get_date_completed()->format( 'Y-m-d' ) : current_time( 'mysql', true );
 		$download->set_access_expires( strtotime( $from_date . ' + ' . $expiry . ' DAY' ) );
 	}
 

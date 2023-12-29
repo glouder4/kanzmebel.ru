@@ -85,7 +85,7 @@ class ActionScheduler_wcSystemStatus {
 
 		if ( ! empty( $action ) ) {
 			$date_object = $this->store->get_date( $action[0] );
-			$action_date = $date_object- format( 'Y-m-d H:i:s O' );
+			$action_date = $date_object->format( 'Y-m-d H:i:s O' );
 		} else {
 			$action_date = '&ndash;';
 		}

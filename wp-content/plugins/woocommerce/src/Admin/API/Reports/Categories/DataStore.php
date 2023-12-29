@@ -251,7 +251,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				$fields    = $this->get_fields( $query_args );
 				$ids_table = $this->get_ids_table( $included_categories, 'category_id' );
 
-				$this->add_sql_clause( 'select', $this- format_join_selections( array_merge( array( 'category_id' ), $fields ), array( 'category_id' ) ) );
+				$this->add_sql_clause( 'select', $this->format_join_selections( array_merge( array( 'category_id' ), $fields ), array( 'category_id' ) ) );
 				$this->add_sql_clause( 'from', '(' );
 				$this->add_sql_clause( 'from', $this->subquery->get_query_statement() );
 				$this->add_sql_clause( 'from', ") AS {$table_name}" );

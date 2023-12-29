@@ -270,7 +270,7 @@ class PageController {
 				$line = fgets( $stream );
 				if ( is_string( $line ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- format_line does the escaping.
-					echo $this- format_line( $line, $line_number );
+					echo $this->format_line( $line, $line_number );
 					$line_number ++;
 				}
 				?>

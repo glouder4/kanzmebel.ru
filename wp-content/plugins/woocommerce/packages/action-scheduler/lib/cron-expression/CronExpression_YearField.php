@@ -12,7 +12,7 @@ class CronExpression_YearField extends CronExpression_AbstractField
      */
     public function isSatisfiedBy(DateTime $date, $value)
     {
-        return $this->isSatisfied($date- format('Y'), $value);
+        return $this->isSatisfied($date->format('Y'), $value);
     }
 
     /**
@@ -22,11 +22,11 @@ class CronExpression_YearField extends CronExpression_AbstractField
     {
         if ($invert) {
             $date->modify('-1 year');
-            $date->setDate($date- format('Y'), 12, 31);
+            $date->setDate($date->format('Y'), 12, 31);
             $date->setTime(23, 59, 0);
         } else {
             $date->modify('+1 year');
-            $date->setDate($date- format('Y'), 1, 1);
+            $date->setDate($date->format('Y'), 1, 1);
             $date->setTime(0, 0, 0);
         }
 

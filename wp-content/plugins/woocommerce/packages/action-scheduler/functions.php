@@ -369,7 +369,7 @@ function as_next_scheduled_action( $hook, $args = null, $group = '' ) {
 	$action         = ActionScheduler::store()->fetch_action( $action_id );
 	$scheduled_date = $action->get_schedule()->get_date();
 	if ( $scheduled_date ) {
-		return (int) $scheduled_date- format( 'U' );
+		return (int) $scheduled_date->format( 'U' );
 	} elseif ( null === $scheduled_date ) { // pending async action with NullSchedule.
 		return true;
 	}
@@ -483,7 +483,7 @@ function as_get_scheduled_actions( $args = array(), $return_format = OBJECT ) {
  */
 function as_get_datetime_object( $date_string = null, $timezone = 'UTC' ) {
 	if ( is_object( $date_string ) && $date_string instanceof DateTime ) {
-		$date = new ActionScheduler_DateTime( $date_string- format( 'Y-m-d H:i:s' ), new DateTimeZone( $timezone ) );
+		$date = new ActionScheduler_DateTime( $date_string->format( 'Y-m-d H:i:s' ), new DateTimeZone( $timezone ) );
 	} elseif ( is_numeric( $date_string ) ) {
 		$date = new ActionScheduler_DateTime( '@' . $date_string, new DateTimeZone( $timezone ) );
 	} else {
