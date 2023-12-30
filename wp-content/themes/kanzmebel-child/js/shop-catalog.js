@@ -153,7 +153,8 @@ export default class ShopPageCatalog extends Essentional{
             let minRange = parseInt(rangeInput[0].value);
             let maxRange = parseInt(rangeInput[1].value);
             if (maxRange - minRange < rangeMin) {
-                if (e.target.className === "min") {
+                console.log(e)
+                if ( e.className === 'min' || e.target.className === "min") {
                     rangeInput[0].value = maxRange - rangeMin;
                 } else {
                     rangeInput[1].value = minRange + rangeMin;

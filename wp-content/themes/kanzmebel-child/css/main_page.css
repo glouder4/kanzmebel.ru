@@ -325,6 +325,14 @@
 
     #popular-catalog.catalog .section_data .catalog-data>.catalog-data-products>.catalog_item{
         width: 24%;
+
+        margin-top: 15px;
+    }
+    #popular-catalog.catalog .section_data .catalog-data>.catalog-data-products>.catalog_item:nth-child(1),
+    #popular-catalog.catalog .section_data .catalog-data>.catalog-data-products>.catalog_item:nth-child(2),
+    #popular-catalog.catalog .section_data .catalog-data>.catalog-data-products>.catalog_item:nth-child(3),
+    #popular-catalog.catalog .section_data .catalog-data>.catalog-data-products>.catalog_item:nth-child(4){
+        margin-top: 0;
     }
     #another-info>.container>div>div p{
         font-family: 'Inter';

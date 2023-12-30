@@ -11,6 +11,12 @@
 }
 .catalog .section_data .catalog-data>.catalog-data-products ul.products.columns-3  .catalog_item{
     width: 49%;
+
+    margin-top: 15px;
+}
+.catalog .section_data .catalog-data>.catalog-data-products ul.products.columns-3  .catalog_item:nth-child(1),
+.catalog .section_data .catalog-data>.catalog-data-products ul.products.columns-3  .catalog_item:nth-child(2){
+    margin-top: 0;
 }
 .catalog .section_data .catalog-data>.catalog-data-products ul.products .catalog_item{
     width: calc(50% - 5px);

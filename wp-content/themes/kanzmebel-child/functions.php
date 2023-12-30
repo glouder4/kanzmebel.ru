@@ -161,6 +161,7 @@ function kanzmebel_theme_customize_register( $wp_customize ) {
     $wp_customize->remove_setting('custom_logo');
     $wp_customize->add_setting( 'main_logo' );
     $wp_customize->add_setting( 'mobile_logo' );
+    $wp_customize->add_setting( 'footer_logo' );
     $wp_customize->add_control(
         new WP_Customize_Upload_Control(
             $wp_customize,
@@ -179,6 +180,17 @@ function kanzmebel_theme_customize_register( $wp_customize ) {
             array(
                 'label'    => 'Мобильный логотип',
                 'settings' => 'mobile_logo',
+                'section'  => 'title_tagline'
+            )
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Upload_Control(
+            $wp_customize,
+            'footer_logo_control',
+            array(
+                'label'    => 'Логотип в футере',
+                'settings' => 'footer_logo',
                 'section'  => 'title_tagline'
             )
         )
@@ -353,7 +365,7 @@ function woocommerce_loop_body_data_action(){
     $width = $product->get_width() ;
     $length = $product->get_length();
 
-    echo '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
+    if($length != '' && $width != '' && $height !='') echo '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
 }
 add_action( 'woocommerce_loop_body_data', 'woocommerce_loop_body_data_action' );
 
@@ -612,4 +624,12 @@ function truemisha_del_fields( $fields ) {
 
     return $fields;
 
+}
+
+function cmp($a, $b) {
+    if ($a->get_price() == $b->get_price()) {
+        return 0;
+    } else {
+        return $a->get_price() < $b->get_price() ? 1 : -1; // reverse order
+    }
 }

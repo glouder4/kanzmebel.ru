@@ -54,10 +54,13 @@ if ( class_exists( 'WooCommerce' ) ) {
             'status'               => 'publish',
             'limit'                => $args['posts_per_page'],
             'page'                 => $args['current_page'],
+            'orderby' => '_price',
+            'order' => 'DESC',
             'paginate'             => true,
             'return'               => 'object',
             'include' => $args['include_product_ids']
         ));
+
     }
     else $products = null;
 
@@ -147,8 +150,12 @@ if ( class_exists( 'WooCommerce' ) ) {
                         $min_price = 0;
                         $max_price = 1000;
                         if(!empty($products)){
-                            $min_price = $products->products[0]->get_price();
-                            $max_price = $products->products[count($products->products)-1]->get_price();
+                            $products_to_sort = $products->products;
+                            usort($products_to_sort, "cmp");
+
+                            $min_price = $products_to_sort[count($products_to_sort)-1]->get_price();
+                            $max_price = $products_to_sort[0]->get_price();
+
                             if( $min_price == $max_price ){
                                 $min_price = 0;
                             }
@@ -295,7 +302,7 @@ if ( class_exists( 'WooCommerce' ) ) {
                         $product .= '<a href="'.$link.'" title="'.$product_name.'" itemprop="url">';
                         $product .= '<img src="'.$image.'" data-id="'.$product_id.'" itemprop="image" alt="'.$alt.'">';
                         $product .= '<p class="product_name" itemprop="name">'.$product_name.'</p>';
-                        $product .= '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
+                        if($length != '' && $width != '' && $height !='') $product .= '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
                         $product .= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
                         $product .= '<span itemprop="price" class="product_price">'.$price.'</span>';
                         $product .= '<meta itemprop="priceCurrency" content="RUB" />';

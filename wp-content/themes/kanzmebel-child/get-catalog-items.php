@@ -20,7 +20,7 @@ function product_catalog_template($product_id,$link,$image,$product_name,$length
         $product .= '<a href="'.$link.'" title="'.$product_name.'" itemprop="url">';
             $product .= '<img src="'.$image.'" data-id="'.$product_id.'" itemprop="image" alt="'.$alt.'">';
             $product .= '<p class="product_name" itemprop="name">'.$product_name.'</p>';
-            $product .= '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
+    if($length != '' && $width != '' && $height !='') $product .= '<p class="product_dimensions">'.$length.'x'.$width.'x'.$height.'мм </p>';
             $product .= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
             $product .= '<span itemprop="price" class="product_price">'.$price.'</span>';
             $product .= '<meta itemprop="priceCurrency" content="RUB" />';

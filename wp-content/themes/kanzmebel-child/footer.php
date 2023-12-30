@@ -7,7 +7,7 @@
     <div class="container">
         <div id="mobile_footer" class="d-flex d-md-none flex-column">
             <div id="mobile_footer-logo">
-                <img src="<?=get_theme_mod( 'main_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
+                <img src="<?=get_theme_mod( 'footer_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
             </div>
             <div id="mobile_footer-for_clients">
                 <span class="h3">ДЛЯ КЛИЕНТА</span>

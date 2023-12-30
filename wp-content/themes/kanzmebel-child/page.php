@@ -145,8 +145,12 @@ get_header();
                                     $min_price = 0;
                                     $max_price = 1000;
                                     if(!empty($products)){
-                                        $min_price = $products->products[0]->get_price();
-                                        $max_price = $products->products[count($products->products)-1]->get_price();
+                                        $products_to_sort = $products->products;
+                                        usort($products_to_sort, "cmp");
+
+                                        $min_price = $products_to_sort[count($products_to_sort)-1]->get_price();
+                                        $max_price = $products_to_sort[0]->get_price();
+
                                         if( $min_price == $max_price ){
                                             $min_price = 0;
                                         }
@@ -239,7 +243,7 @@ get_header();
 
 
             if( count($args['include_product_ids']) > 0 ){
-                $products       = wc_get_products(array(
+                $products = wc_get_products(array(
                     'meta_key'             => '_price',
                     'status'               => 'publish',
                     'limit'                => $args['posts_per_page'],
@@ -374,8 +378,13 @@ get_header();
                                 $min_price = 0;
                                 $max_price = 1000;
                                 if(!empty($products)){
-                                    $min_price = $products->products[0]->get_price();
-                                    $max_price = $products->products[count($products->products)-1]->get_price();
+                                    $products_to_sort = $products->products;
+                                    usort($products_to_sort, "cmp");
+
+                                    $min_price = $products_to_sort[count($products_to_sort)-1]->get_price();
+                                    $max_price = $products_to_sort[0]->get_price();
+
+
                                     if( $min_price == $max_price ){
                                         $min_price = 0;
                                     }
