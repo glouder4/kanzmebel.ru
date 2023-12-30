@@ -101,6 +101,8 @@
     letter-spacing: 0em;
     text-align: center;
     color: #FFF9F9;
+
+    margin-left: 60px;
 }
 
 li.dropdown>ul{
