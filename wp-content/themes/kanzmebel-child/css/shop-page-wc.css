@@ -1,8 +1,16 @@
 .catalog .section_data .catalog-data>.catalog-data-products ul.products{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-top: 15px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 
     gap: unset;
@@ -26,10 +34,15 @@
 
 }
 .catalog .section_data .catalog-data>.catalog-data-products ul.products .catalog_item>a>img{
+    -o-object-fit: cover;
     object-fit: cover;
 }
 .catalog .section_data .catalog-data>.catalog-data-products ul.products .catalog_item>a.add_to_cart_button{
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     height: auto;
 }

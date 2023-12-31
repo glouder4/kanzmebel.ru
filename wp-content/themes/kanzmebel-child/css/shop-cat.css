@@ -1,7 +1,14 @@
 #shop-catalog{
     margin-top: 10px;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 
@@ -9,8 +16,15 @@
     margin-top: 20px;
 }
 #category-products_in_interior .section-data{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+
+    -webkit-box-pack: center;
+
+    -ms-flex-pack: center;
 
     justify-content: center;
     gap: 5px;
@@ -37,6 +51,7 @@
     height: 100%;
 }
 #category-products_in_interior .section-data .slide img{
+    -o-object-fit: cover;
     object-fit: cover;
     height: 100%;
     width: 100%;
@@ -59,13 +74,23 @@
     color: #555049;
 }
 #about_category .section-data .horizon-data{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 
     gap: 25px;
 }
 #about_category .section-data .horizon-data>.horizon-data-text{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 10px;
 }
@@ -143,6 +168,9 @@
 }
 @media(min-width: 991px){
     #about_category .section-data .horizon-data{
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
         flex-direction: row;
         gap: 40px;
     }

@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@400;700&display=swap');
 
+html *{
+    -webkit-appearance: none;
+}
 html body{
     background-color: #FFF9F9;
 
@@ -25,17 +28,17 @@ html body button,
 html body button:active,
 html body button:focus{
     outline: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: 0;
 }
 html body img{
     max-width: 100%;
+    -o-object-fit: contain;
     object-fit: contain;
 }
 html body .dropdown .dropdown-menu {
     -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
 
@@ -57,7 +60,12 @@ html body .dropdown .dropdown-menu.show{
 }
 .additional-data .section-data{
     text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 30px;
 }
@@ -120,6 +128,7 @@ html body .dropdown .dropdown-menu.show{
     border: 0px;
     outline: unset;
     border-radius: 0;
+    -webkit-box-shadow: unset;
     box-shadow: unset;
 
     font-family: 'Inter';
@@ -133,6 +142,10 @@ html body .dropdown .dropdown-menu.show{
     padding-left: 0;
     padding-right: 0;
 
+    -webkit-box-pack: justify;
+
+    -ms-flex-pack: justify;
+
     justify-content: space-between;
 }
 .accordion>.accordion-item{
@@ -141,6 +154,8 @@ html body .dropdown .dropdown-menu.show{
 .accordion .accordion-button::after{
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 11.79H23' stroke='%23222222' stroke-linecap='square'/%3E%3Cpath d='M12 0.790039V22.79' stroke='%23222222' stroke-linecap='square'/%3E%3C/svg%3E");
     margin: 0;
+    -webkit-transform-origin: 10px 7px;
+    -ms-transform-origin: 10px 7px;
     transform-origin: 10px 7px;
 }
 .accordion .accordion-button:not(.collapsed)::after{
@@ -177,6 +192,8 @@ html body .dropdown .dropdown-menu.show{
         margin-top: 20px;
     }
     .additional-data .section-data>a.btn.link_btn{
+        max-width: -webkit-fit-content;
+        max-width: -moz-fit-content;
         max-width: fit-content;
     }
 }
@@ -207,17 +224,24 @@ html body .dropdown .dropdown-menu.show{
 
 #cookie_notification{
     display: none;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: fixed;
     bottom: 15px;
     left: 50%;
     width: 900px;
     max-width: 90%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     padding: 25px;
     background-color: white;
     border-radius: 4px;
+    -webkit-box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.4);
 }
 #cookie_notification>button{
@@ -249,7 +273,12 @@ html body .dropdown .dropdown-menu.show{
 
 #page-data-form form,
 modal-data-form form{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 7px;
 }
@@ -259,8 +288,8 @@ modal-data-form form{
     margin-top: 10px;
     max-width: 460px;
 }
- #page-data-form form input,
- #modal-data-form form input{
+#page-data-form form input,
+#modal-data-form form input{
     border: 1px solid #555049;
     color: #555049;
 
@@ -274,9 +303,46 @@ modal-data-form form{
     text-align: left;
 }
 #modal-data-form form{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 10px;
+}
+#page-data-form form input::-webkit-input-placeholder, #modal-data-form form input::-webkit-input-placeholder{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+#page-data-form form input::-moz-placeholder, #modal-data-form form input::-moz-placeholder{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+#page-data-form form input:-ms-input-placeholder, #modal-data-form form input:-ms-input-placeholder{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+#page-data-form form input::-ms-input-placeholder, #modal-data-form form input::-ms-input-placeholder{
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 #page-data-form form input::placeholder,
 #modal-data-form form input::placeholder{
@@ -322,6 +388,8 @@ modal-data-form form{
 #page-data-form form input.smtp_send_form,
 #modal-data-form form input.smtp_send_form{
     background-color: #656F6B;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     color: #FFF9F9;
 
@@ -333,8 +401,13 @@ modal-data-form form{
 #page_links{
     width: 45px;
 
-    background-color: white;
+    background-color: #FFF9F9;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 5px;
 
@@ -344,14 +417,24 @@ modal-data-form form{
     bottom: 5px;
 }
 #cart_link{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 40px;
     height: 40px;
 
+    -webkit-box-pack: center;
+
+    -ms-flex-pack: center;
+
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 #cart_link>a{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 25px;
     height: 25px;
@@ -366,6 +449,8 @@ modal-data-form form{
 
 @media (min-width: 576px){
     #cookie_notification.show{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
     .cookie_accept{

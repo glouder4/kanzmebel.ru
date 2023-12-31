@@ -13,17 +13,37 @@
     background-repeat: no-repeat;
     background-size: cover;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 
     gap: 12px;
 }
 #main-slider #mainCarousel .slide .slide_data{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 15px;
+
+    width: -webkit-fit-content;
+
+    width: -moz-fit-content;
 
     width: fit-content;
 }
@@ -46,6 +66,8 @@
     padding: 14px 31px;
     min-width: 140px;
     text-transform: uppercase;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
@@ -62,6 +84,10 @@
 #main-slider #mainCarousel .slide .link_btn{
     border: 1px solid #FFF9F9;
     color: #FFF9F9;
+
+    max-width: -webkit-fit-content;
+
+    max-width: -moz-fit-content;
 
     max-width: fit-content;
 }
@@ -83,6 +109,8 @@
     left: 0;
     width: 0%;
     height: 100%;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
     z-index: -1;
 }
@@ -107,7 +135,11 @@
 }
 #another-info>.container>div>div{
     gap: 10px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 #another-info>.container>div>div p{
@@ -191,7 +223,11 @@
     margin-top: 20px;
 }
 #news_list #news_slider .slide.swiper-slide-active>a{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
 #news_list #news_slider .news_card{
@@ -199,7 +235,14 @@
     max-width: 100%;
     height: 382px;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 #news_list #news_slider .news_card>.news_card-image{
@@ -207,10 +250,16 @@
 }
 #news_list #news_slider .news_card>.news_card-image>img{
     height: 250px;
+    -o-object-fit: cover;
     object-fit: cover;
 }
 #news_list #news_slider .news_card>.news_card-body{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 15px;
     height: inherit;
@@ -236,7 +285,13 @@
     text-align: left;
     color: #656F6B;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 6px;
 }
@@ -255,6 +310,8 @@
 @media(min-width: 800px){
     #main-slider #mainCarousel .slide{
         padding: 0 100px;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
         align-items: flex-start;
     }
 }
@@ -282,6 +339,8 @@
         height: 345px;
     }
     #another-info>.container>div{
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
         gap: 75px;
     }
@@ -291,6 +350,8 @@
 }
 @media (min-width: 1200px){
     #popular-catalog .section_data .catalog-data>.catalog-data-products{
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
         justify-content: flex-start;
     }
     #popular-catalog .section_data .catalog-data>.catalog-data-products .catalog_item{
@@ -345,6 +406,8 @@
 
     #interior .section_title,
     #news_list .section_title{
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         margin-top: 20px;
         margin-bottom: 50px;

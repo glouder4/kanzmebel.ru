@@ -10,9 +10,18 @@
     border-radius: 50%;
 }
 #main-header #mobile_button-wrapper>button{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     height: 100%;
     gap: 4px;
@@ -22,6 +31,7 @@
 #main-header #mobile_button-wrapper>button:active,
 #main-header #mobile_button-wrapper>button:focus{
     outline: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -31,7 +41,7 @@
 
     right: -100%;
     top: 0px;
-    background-color: #fff;
+    background-color: #FFF9F9;
     border-radius: 50%;
     border-top-right-radius: 0;
 
@@ -40,11 +50,20 @@
     position: fixed;
     z-index: 5;
 
+    -webkit-transition: 0.5s ease;
+
+    -o-transition: 0.5s ease;
+
     transition: 0.5s ease;
 }
 /*#main-header #mobile-sm-menu>.navbar-collapse.collapsing #mobile_navigation,*/
 #main-header #mobile-sm-menu>.navbar-collapse.show #mobile_navigation{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 
     right: 0;
@@ -55,21 +74,41 @@
     opacity: 1;
 }
 #mobile_navigation #close-mobile_navigation{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
 }
 #mobile_navigation #mobile_navigation-data{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 
     padding: 0 25px;
-    height: 100%;
+    height: calc(100% - 50px);
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    gap: 20px;
 
     padding-bottom: 25px;
 }
+#mobile_navigation #mobile_navigation-data_menu{
+    margin-top: 15px;
+}
 #mobile_navigation #mobile_navigation-data #mobile_navigation-data_menu>ul{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 
     gap: 35px;
@@ -125,6 +164,8 @@ li.dropdown>ul{
         gap: 10px;
     }
     #lg-menu #lg_phone #phone_link{
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         gap: 10px;
 

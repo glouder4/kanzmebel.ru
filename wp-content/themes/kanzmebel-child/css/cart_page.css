@@ -6,17 +6,38 @@
     margin-bottom: 20px;
 }
 #products_in_cart{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+
+    -webkit-box-pack: justify;
+
+    -ms-flex-pack: justify;
 
     justify-content: space-between;
 }
 #cart_page .woocommerce-cart-form__cart-item{
     position: relative;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+
+    -webkit-box-pack: justify;
+
+    -ms-flex-pack: justify;
 
     justify-content: space-between;
 
@@ -36,8 +57,14 @@
     border-radius: 50%;
     width: 20px;
     height: 19px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     color: #656F6B;
     top: 2px;
@@ -65,9 +92,18 @@
 }
 #cart_page .woocommerce-cart-form__cart-item>.product-prices{
     margin-top: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: flex-start;
 
     gap: 5px;
@@ -111,11 +147,18 @@
 
 @media(min-width: 576px){
     #cart_page #products_in_cart{
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
         justify-content: flex-start;
         gap: 10px;
     }
     #cart_page .woocommerce-cart-form__cart-item>.product-prices{
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
         flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         gap: 15px;
     }
@@ -125,6 +168,8 @@
         margin-top: 30px;
     }
     #cart_page>.container>.cart-collaterals{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         max-width: 450px;
     }

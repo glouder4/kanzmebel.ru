@@ -81,7 +81,7 @@
 
         <div id="md_footer" class="d-none d-md-flex flex-row flex-wrap justify-content-between">
             <div id="md_footer-logo">
-                <img src="<?=get_theme_mod( 'main_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
+                <img src="<?=get_theme_mod( 'footer_logo' );?>" alt="<?=get_bloginfo( 'name' );?>">
 
                 <div id="lg_footer-special_data" class="w-100 justify-content-between">
                     <?php
@@ -201,7 +201,7 @@
     <div id="page_up" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_25_2420)">
-                <path d="M40 20C40 8.95431 31.0457 0 20 0C8.95431 0 0 8.95431 0 20C0 31.0457 8.95431 40 20 40C31.0457 40 40 31.0457 40 20Z" fill="white" fill-opacity="0.6"/>
+                <path fill="#FFF9F9" d="M40 20C40 8.95431 31.0457 0 20 0C8.95431 0 0 8.95431 0 20C0 31.0457 8.95431 40 20 40C31.0457 40 40 31.0457 40 20Z" fill="white" fill-opacity="0.6"/>
                 <path d="M12.8 17.6L20 10.4L27.2 17.6" stroke="#656F6B" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M20 11.36V28.72" stroke="#656F6B" stroke-linecap="round"/>
             </g>
